@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/css/product/product-by-category-styles.css" />
+    <title>Vendo Mis Cosas</title>
+  </head>
+  <body>
+    <%- include('../partials/header.ejs') %>
+
+    <main class="product-category-all-container">
+      <% if(getCategory) { %>
+
+      <h1 class="product-category-title">
+        Categoría <%= getCategory.category_name %>
+      </h1>
+
+      <% } else if(!getCategory) { %>
+      <h1 class="product-category-title">No existe la Categoría <%= id %></h1>
+      <% } %>
+
+      <section class="product-category-list-container">
+        <% getCategoryProducts? getCategoryProducts.map( element => { %>
+        <a class="product-link" href="/productos/<%= element.id %>">
+        <article class="product-category-card">
+          
+            <img class="product-image"
+              src="/img/products/<%= element.main_image %>"
+              alt="product-image"
+            />
+            <h3 class="product-name"><%= element.product_name %></h3>
+            <p class="product-description"><%= element.product_description %></p>
+            <p class="product-price">$ <%= element.product_price %></p>
+         
+        </article>
+        </a>
+        <% }): "" ; %>
+      </section>
+    </main>
+  </body>
+</html>

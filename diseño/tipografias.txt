@@ -1,0 +1,30 @@
+1. Open Sans
+2. Lato
+3. Montserrat
+4. Merriweather
+5. Raleway
+6. Roboto
+7. Ubuntu
+8. Nunito
+9. Poppins
+10. Inter
+11. Playfair Display
+12. Great Vibes
+13. Oswald
+14. Fira Sans
+15. Source Sans Pro
+16. Arial Nova
+17. Quicksand
+18. Karla
+19. Rubik
+20. Muli
+21. Lora
+22. Josefin Sans
+23. Inconsolata
+24. Hind
+25. PT Sans
+26. Arvo
+27. Bitter
+28. Abril Fatface
+29. Varela Round
+30. Libre Baskerville

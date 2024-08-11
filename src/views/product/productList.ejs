@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/product/product-list-styles.css">
+    <title>Vendo Mis Cosas</title>
+</head>
+<body>
+
+    <header>
+        <%- include('../partials/header.ejs') %>
+    </header>
+
+    <main class="product_list-all-container">
+
+        <h1 class="product-list-title">Lista de Productos</h1>
+        <h2 class="product-list-subtitle">Todos los Productos a la Venta</h2>
+
+
+        <section class="product-list-container">
+
+            <% getAllProducts.map ( element => { %>
+
+                <a class="product-link" href="/productos/<%= element.id %>">
+
+                    <article class="product-card">
+
+                        <img class="product-image" src="/img/products/<%= element.main_image %>" alt="imagen-producto" style="max-width: 275px;">
+
+                        <h3 class="product-name"> <%= element.product_name %> </h3>
+
+                        <p class="product-description"> <%= element.product_description %> </p>
+
+                        <p class="product-price">$ <%= element.product_price %> </p>
+
+
+                    </article>
+
+                </a>
+
+
+
+            <% }) %>
+
+        </section>
+
+
+    </main>
+
+
+
+</body>
+</html>

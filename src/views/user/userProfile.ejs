@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Venado Mis Cosas</title>
+</head>
+<body>
+    
+    <%- include('../partials/header.ejs') %>
+
+    <section class="user-profile-container">
+
+        <article class="user-card">
+
+            <img src="/img/users/<%= user.user_avatar %>" alt="user-avatar">
+
+            <h1> <%= user.user_name %> </h1>
+            <h3> <%= user.user_email %> </h3>
+
+            <p> <%= user.sales_description %> </p>
+
+
+        </article>
+
+        <hr>
+        <h2>Productos a la venta</h2>
+
+        <% user.products.map ( element => { %>
+
+            <article class="product-card">
+
+                <h1> <%= element.product_name %> </h1>
+                <p> <%= element.product_description %> </p>
+                <h4>$ <%= element.product_price %> </h4>
+
+                <img src="/img/products/<%= element.main_image %>" alt="imagen-producto">
+
+            </article>
+
+
+        <% }) %>
+
+        <hr>
+        <h2>Reseñas de otros Usuarios</h2>
+
+        <% user.user_reviews.map ( element => { %>
+
+            <article class=""review-card>
+
+                <h4> <%= element.review_title %> </h4>
+                <p> <%= element.review_text %> </p>
+                <h5>Rating:  <%= element.review_rating %>/100 </h5>
+
+            </article>
+
+        <% }) %>
+
+
+    </section>
+
+</body>
+</html>
