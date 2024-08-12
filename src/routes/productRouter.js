@@ -13,4 +13,9 @@ router.get('/categorias/:id', productController.getCategory)
 // ? Detalle de Producto
 router.get('/productos/:id', productController.productDetail)
 
+
+router.get('/usuarios/:id/agregar-producto', productController.addProductForm)
+
+router.get('/usuarios/:id/actualizar-producto', productController.updateProductForm)
+
 module.exports = router

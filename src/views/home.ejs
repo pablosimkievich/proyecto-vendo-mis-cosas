@@ -1,53 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/css/home-styles.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/css/home-styles.css" />
     <title>Vendo Mis Cosas</title>
-</head>
-<body>
-
-    <header>
-        <%- include('partials/header.ejs') %>
-    </header>
-
+  </head>
+  <body>
+    <header><%- include('partials/header.ejs') %></header>
 
     <main class="home-container">
+      <h1 class="category-title">Categorías</h1>
+      <h2 class="category-subtitle">Elegí por Categoría</h2>
 
-        <section class="home-categories">
+      <section class="categories-list-container">
+        <% getAllCategories.map( element => { %>
 
-            <h1 class="category-title">Categorías</h1>
-            <h2 class="category-subtitle">Elegí por Categoría</h2>
-            
-    
-            <div class="categories-container">
-    
-                <% getAllCategories.map( element => { %>
+        <a class="category-link" href="/categorias/<%= element.id %>">
+          <article class="category-card">
+            <img
+              class="category-image"
+              src="/img/categories/<%= element.category_image %>"
+              alt="category-image"
+              style="max-width: 280px"
+            />
 
-                    <a class="category-link" href="/categorias/<%= element.id %>">
+            <h2 class="category-name"><%= element.category_name %></h2>
+            <p class="category-description">
+              <%= element.category_description %>
+            </p>
+          </article>
+        </a>
 
-                        <article class="category-card">
-
-                            <img class="category-image" src="/img/categories/<%= element.category_image %>" alt="category-image" style="max-width: 280px;">
-        
-                            <h2 class="category-name"><%= element.category_name %></h2>
-                            <p class="category-description"><%= element.category_description %></p>
-                            
-                        </article>
-                    </a>
-    
-                <% }) %>
-    
-            </div>
-    
-        </section>
-
-
+        <% }) %>
+      </section>
     </main>
-
-
-
-</body>
+  </body>
 </html>

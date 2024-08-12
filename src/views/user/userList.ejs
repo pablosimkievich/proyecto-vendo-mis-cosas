@@ -1,67 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/css/user/user-list-styles.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/css/user/user-list-styles.css" />
     <title>Vendo Mis Cosas</title>
-</head>
-<body>
-
-    <header>
-        <%- include('../partials/header.ejs') %>
-    </header>
+  </head>
+  <body>
+    <header><%- include('../partials/header.ejs') %></header>
 
     <main class="user-list-all-container">
+      <section class="user-list-container">
+        <h1 class="users-list-title">Lista de Usuarios</h1>
+        <h2 class="users-list-subtitle">Usuarios con Productos a la Venta</h2>
 
-        <section class="user-list-container">
+        <% allUsers.map (element => { %>
 
-            <h1 class="users-list-title">Lista de Usuarios</h1>
-            <h2 class="users-list-subtitle">Usuarios con Productos a la Venta</h2>
-    
-            <% allUsers.map (element => { %>
+        <article class="user-card">
+          <a class="user-link" href="/usuarios/<%= element.id %>">
+            <img
+              class="user-avatar"
+              src="/img/users/<%= element.user_avatar %> "
+              alt="user_avatar"
+            />
+          </a>
 
-                
+          <div class="data-container">
+            <a class="user-link" href="/usuarios/<%= element.id %>">
+              <p class="user-data"><%= element.user_name %></p>
 
-                    <article class="user-card">
+              <p class="user-data"><%= element.sales_description %></p>
+            </a>
 
-                        <a class="user-link" href="/usuarios/<%= element.id %>">
+            <button type="submit" class="user-button">Mostrar Email</button>
+            <button type="submit" class="user-button">Reseñar Usuario</button>
 
-                            <img class="user-avatar" src="/img/users/<%= element.user_avatar %> " alt="user_avatar">
+            <p class="user-data"><%= element.user_email %></p>
+          </div>
+        </article>
 
-                        </a>
-
-                        <div class="data-container">
-
-                            <a class="user-link" href="/usuarios/<%= element.id %>">
-
-                                <p class="user-data"> <%= element.user_name %> </p>
-                                
-                                <p class="user-data"> <%= element.sales_description %> </p>
-
-                            </a>
-
-                            <button type="submit" class="user-button">Mostrar Email</button>
-                            <button type="submit" class="user-button">Reseñar Usuario</button>
-
-                            <p class="user-data"> <%= element.user_email %> </p>
-
-                        </div>
-
-                    </article>
-
-
-
-
-
-            <% }) %>
-    
-        </section>
-
+        <% }) %>
+      </section>
     </main>
-
-
-
-</body>
+  </body>
 </html>

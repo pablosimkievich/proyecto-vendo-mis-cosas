@@ -7,14 +7,16 @@
     margin-left: 30px;
 }
 
-.categories-container {
+.categories-list-container {
     margin-top: 30px;
+    margin-left: 30px;
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
+    gap: 27px;
 }
 
 .category-title {
+    margin-left: 30px;
     padding-bottom: 0.5em;
     padding-top: 0.5em;
     color: var(--color-less-dark);
@@ -22,6 +24,7 @@
 }
 
 .category-subtitle {
+    margin-left: 30px;
     color: var(--color-less-dark);
     margin-bottom: 30px;
 }
@@ -38,7 +41,6 @@
 
 .category-card {
     flex-direction: column;
-    margin-right: 1.7em;
     background-color: white;
     border-radius: 4px;
     max-width: 280px;

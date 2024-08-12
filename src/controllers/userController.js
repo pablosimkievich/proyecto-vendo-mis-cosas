@@ -37,13 +37,34 @@ const userProfile = async (req, res) => {
     }
 }
 
+const registerForm = (req, res) => {
+    res.render('user/registerForm')
+}
+
+const registerProcess = (req, res) => {
+    console.log("Soy Register Process")
+}
+
+
+const updateUserForm = (req, res) => {
+    res.render('user/updateUserForm')
+}
+
 
 const loginForm = (req, res) => {
-    res.render('user/login')
+    res.render('user/loginForm') 
+}
+
+const reviewUserForm = (req, res) => {
+    res.render('user/reviewUserForm')
 }
 
 module.exports = {
     userList,
     userProfile,
+    registerForm,
+    registerProcess,
+    updateUserForm,
+    reviewUserForm,
     loginForm,
 }

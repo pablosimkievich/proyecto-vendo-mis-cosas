@@ -71,9 +71,19 @@ const productDetail = async (req, res) => {
     }
 }
 
+const addProductForm = (req, res) => {
+    res.render('product/addProductForm')
+}
+
+const updateProductForm = (req, res) => {
+    res.render('product/updateProductForm')
+}
+
 
 module.exports = {
     productList,
     getCategory,
     productDetail,
+    addProductForm,
+    updateProductForm
 }

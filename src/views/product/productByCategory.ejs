@@ -24,17 +24,18 @@
       <section class="product-category-list-container">
         <% getCategoryProducts? getCategoryProducts.map( element => { %>
         <a class="product-link" href="/productos/<%= element.id %>">
-        <article class="product-category-card">
-          
-            <img class="product-image"
+          <article class="product-category-card">
+            <img
+              class="product-image"
               src="/img/products/<%= element.main_image %>"
               alt="product-image"
             />
             <h3 class="product-name"><%= element.product_name %></h3>
-            <p class="product-description"><%= element.product_description %></p>
+            <p class="product-description">
+              <%= element.product_description %>
+            </p>
             <p class="product-price">$ <%= element.product_price %></p>
-         
-        </article>
+          </article>
         </a>
         <% }): "" ; %>
       </section>
