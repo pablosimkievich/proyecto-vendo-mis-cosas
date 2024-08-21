@@ -4,61 +4,77 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Venado Mis Cosas</title>
+    <link rel="stylesheet" href="/css/user/user-profile-styles.css">
+    <title>Vendo Mis Cosas</title>
 </head>
 <body>
     
     <%- include('../partials/header.ejs') %>
 
-    <section class="user-profile-container">
+    <main class="user-profile-all-container">
 
-        <article class="user-card">
+        <section class="user-profile-container">
 
-            <img src="/img/users/<%= user.user_avatar %>" alt="user-avatar">
+            <h1 class="user-title">Usuario</h1>
+            <h2 class="user-subtitle"> <%= user.user_name %> </h2>
 
-            <h1> <%= user.user_name %> </h1>
-            <h3> <%= user.user_email %> </h3>
+            <article class="user-card">
 
-            <p> <%= user.sales_description %> </p>
+                <img class="user-avatar" src="/img/users/<%= user.user_avatar %>" alt="user-avatar">
 
+                <div class="data-container">
 
-        </article>
+                    <p class="user-data"> <%= user.sales_description %> </p>
 
-        <hr>
-        <h2>Productos a la venta</h2>
+                    <p class="user-data"> <%= user.user_email %> </p>
 
-        <% user.products.map ( element => { %>
-
-            <article class="product-card">
-
-                <h1> <%= element.product_name %> </h1>
-                <p> <%= element.product_description %> </p>
-                <h4>$ <%= element.product_price %> </h4>
-
-                <img src="/img/products/<%= element.main_image %>" alt="imagen-producto">
+                </div>
 
             </article>
+            
+        </section>
 
+        <h2 class="user-subtitle">Productos a la venta</h2>
 
-        <% }) %>
+        <section class="products-container">
 
-        <hr>
-        <h2>Reseñas de otros Usuarios</h2>
+            <% user.products.map ( element => { %>
 
-        <% user.vendor_user_reviews.map ( element => { %>
+                <a class="product-link" href="/usuarios/<%= user.id %>/productos/<%= element.id %>">
+                    <article class="product-card">
 
-            <article class=""review-card>
+                        <img class="product-image" src="/img/products/<%= element.main_image %>" alt="imagen-producto">
 
-                <h4> <%= element.review_title %> </h4>
-                <p> <%= element.review_text %> </p>
-                <h5>Rating:  <%= element.review_rating %>/100 </h5>
+                        <h3 class="product-name"> <%= element.product_name %> </h2>
+                        <p class="product-description"> <%= element.product_description %> </p>
+                        <p class="product-price">$ <%= element.product_price %> </p>  
 
-            </article>
+                    </article>
+                </a>
 
-        <% }) %>
+            <% }) %>
 
+        </section>
 
-    </section>
+        <section class="reviews-container">
+
+            <% user.vendor_user_reviews? user.vendor_user_reviews.map ( element => { %>
+
+                <h2 class="user-subtitle">Reseñas de otros Usuarios</h2>
+
+                <article class="review-card">
+
+                    <h3 class="review-title"> <%= element.review_title %> </h3>
+                    <p class="review-text"> <%= element.review_text %> </p>
+                    <h4 class="review-rating">Rating:  <%= element.review_rating %>/100 </h4>
+
+                </article>
+
+            <% }): ''; %>
+
+        </section>
+
+    </main>
 
 </body>
 </html>

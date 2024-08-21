@@ -12,12 +12,12 @@
 
     <main class="product_list-all-container">
       <h1 class="product-list-title">Lista de Productos</h1>
-      <h2 class="product-list-subtitle">Todos los Productos a la Venta</h2>
+      <h2 class="product-list-subtitle">Productos Agregados Recientemente</h2>
 
       <section class="product-list-container">
         <% getAllProducts.map ( element => { %>
 
-        <a class="product-link" href="/productos/<%= element.id %>">
+        <a class="product-link" href="/usuarios/<%= element.users.id %>/productos/<%= element.id %>">
           <article class="product-card">
             <img
               class="product-image"

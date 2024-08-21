@@ -4,16 +4,21 @@ const db = require('../database/models/index')
 const productList = async (req, res) => {
     try {
 
-        const getAllProducts = await db.Product.findAll()
+        const getAllProducts = await db.Product.findAll({
+            include: [{
+                association: 'users'
+            }
 
+            ],
+            order: [
+                ['id', 'DESC']
+            ]
+        })
         res.render('product/productList', { getAllProducts })
 
     } catch(error) {
         console.log(error)
     }
-
-
-    // res.render('product/productList')
 }
 
 
@@ -35,6 +40,9 @@ const getCategory = async (req, res) => {
                 include: [
                     {
                         association: 'categories'
+                    },
+                    {
+                        association: 'users'
                     }
                 ]
             }

@@ -23,7 +23,7 @@
 
       <section class="product-category-list-container">
         <% getCategoryProducts? getCategoryProducts.map( element => { %>
-        <a class="product-link" href="/productos/<%= element.id %>">
+        <a class="product-link" href="/usuarios/<%= element.users.id %>/productos/<%= element.id %>">
           <article class="product-category-card">
             <img
               class="product-image"
