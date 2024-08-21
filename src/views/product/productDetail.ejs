@@ -5,42 +5,85 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="/css/product/product-detail-styles.css">
-    <title>Vando Mis Cosas</title>
+    <title>Vendo Mis Cosas</title>
   </head>
   <body>
     <%- include('../partials/header.ejs') %>
 
-    <section class="product-detail-container">
-      <article class="product-card">
-        <div class="product-info">
-          <% if(product) { %>
-          <h4>Categoría: <%= product.categories.category_name %></h4>
 
-          <h1><%= product.product_name %></h1>
-          <h4><%= product.product_description %></h4>
+    <main class="product-detail-all-container">
 
-          <h2>$ <%= product.product_price %></h2>
+      <h1 class="product-title">Categoría: <%= product.categories.category_name %></h1>
+      <h2 class="product-subtitle"><%= product.product_name %></h2>
+
+      <section class="product-detail-container">
+
+        <div class="thumbs-container">
+
+          <img class="thumb" src="/img/products/<%= product.main_image %>" alt="imagen-1" />
+
+          <img class="thumb"
+            src="/img/products/<%= product.product_additional_images.image_2 %>"
+            alt="imagen-2"
+          />
+
+          <img class="thumb"
+            src="/img/products/<%= product.product_additional_images.image_3 %>"
+            alt="imagen-3"
+          />
+
+          <img class="thumb"
+            src="/img/products/<%= product.product_additional_images.image_4 %>"
+            alt="imagen-4"
+          />
+
         </div>
 
-        <img src="/img/products/<%= product.main_image %>" alt="imagen-1" />
+        <div class="image-display">
 
-        <img
-          src="/img/products/<%= product.product_additional_images.image_2 %>"
-          alt="imagen-2"
-        />
+          <img class="image" src="/img/products/<%= product.main_image %>" alt="imagen-1" />
 
-        <img
-          src="/img/products/<%= product.product_additional_images.image_3 %>"
-          alt="imagen-3"
-        />
+        </div>
 
-        <img
-          src="/img/products/<%= product.product_additional_images.image_4 %>"
-          alt="imagen-4"
-        />
+        <div class="info-container">
 
-        <% } %>
-      </article>
-    </section>
+          <% if(product) { %>
+
+            <h1><%= product.product_name %></h1>
+            <h4><%= product.product_description %></h4>
+
+            <h2>$ <%= product.product_price %></h2>
+          
+          <% } %>
+
+          <button class="btn">Comprar</button>
+
+          <a class="user-link" href="/usuarios/<%= product.users.id %>">
+            <div class="user-card">
+
+              <img class="user-avatar" src="/img/users/<%= product.users.user_avatar %>" alt="">
+
+              <div class="user-data">
+
+                <p class="user-name">Vendedor: <%= product.users.user_name %></p>
+                <p class="user-mail"><%= product.users.user_email %></p>
+
+              </div>
+
+
+
+            </div>
+
+          </a>
+
+
+        </div>
+
+
+      </section>
+
+    </main>
+
+
   </body>
 </html>

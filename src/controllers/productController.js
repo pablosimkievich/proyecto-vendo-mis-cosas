@@ -67,6 +67,9 @@ const productDetail = async (req, res) => {
                 },
                 {
                     association: 'product_additional_images'
+                },
+                {
+                    association: 'users'
                 }
             ]
         })
