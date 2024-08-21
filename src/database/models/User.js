@@ -38,8 +38,28 @@ module.exports = (sequelize, dataTypes) => {
             foreignKey: 'user_fk_id'
         })
         User.hasMany(models.UserReview, {
-            as: 'user_reviews',
-            foreignKey: 'user_fk_id'
+            as: 'vendor_user_reviews',
+            foreignKey: 'vendor_user_fk_id'
+        })
+        User.hasMany(models.UserReview, {
+            as: 'buyer_user_reviews',
+            foreignKey: 'buyer_user_fk_id'
+        })
+        User.hasMany(models.ShopOrder, {
+            as: 'vendor_shop_orders',
+            foreignKey: 'vendor_user_fk_id'
+        })
+        User.hasMany(models.ShopOrder, {
+            as: 'buyer_shop_orders',
+            foreignKey: 'buyer_user_fk_id'
+        })
+        User.hasMany(models.OrderDetail, {
+            as: 'vendor_order_details',
+            foreignKey: 'fk_vendor_user_id'
+        })
+        User.hasMany(models.OrderDetail, {
+            as: 'buyer_order_details',
+            foreignKey: 'fk_buyer_user_id'
         })
     };
     return User;

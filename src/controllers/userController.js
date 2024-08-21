@@ -17,7 +17,10 @@ const userProfile = async (req, res) => {
         const user = await db.User.findByPk(id, {
             include: [
                 {
-                    association: 'user_reviews'
+                    association: 'vendor_user_reviews'
+                },
+                {
+                    association: 'buyer_user_reviews'
                 },
                 {
                     association: 'products'

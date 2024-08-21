@@ -5,7 +5,7 @@ module.exports = (sequelize, dataTypes) => {
             primaryKey: true,
             autoIncrement: true
         },
-        user_fk_id: {
+        vendor_user_fk_id: {
             type: dataTypes.INTEGER
         },
         review_title: {
@@ -16,7 +16,10 @@ module.exports = (sequelize, dataTypes) => {
         },
         review_rating: {
             type: dataTypes.INTEGER
-        }
+        },
+        buyer_user_fk_id: {
+            type: dataTypes.INTEGER
+        },
     },
     {
         tableName: 'user_reviews',
@@ -24,8 +27,12 @@ module.exports = (sequelize, dataTypes) => {
     });
     UserReview.associate = (models) => {
         UserReview.belongsTo(models.User, {
-            as: 'users',
-            foreignKey: 'user_fk_id'
+            as: 'vendor_users',
+            foreignKey: 'vendor_user_fk_id'
+        })
+        UserReview.belongsTo(models.User, {
+            as: 'buyer_users',
+            foreignKey: 'buyer_user_fk_id'
         })
     }
 
