@@ -1,0 +1,31 @@
+
+.footer-container {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 100%;
+    height: 5em;
+    padding-top: 1em;
+    padding-bottom: 1.5em;
+    background-color: var(--color-medium-dark);
+    color: var(--color-light);
+
+}
+
+.data-link-container {
+    flex-direction: column;
+    text-decoration: none;
+}
+
+.link {
+    text-decoration: none;
+    color: var(--color-light);
+    font-weight: 600;
+    padding-left: 0.5em;
+    
+}
+
+.lin::visited {
+    text-decoration: none;
+    color: var(--color-light);
+}

@@ -31,7 +31,7 @@ const userProfile = async (req, res) => {
         if(user) {
             res.render('user/userProfile', { user } )
         } else {
-            res.send(`No existe el usuario nro. ${req.params.id}`)
+            res.render('notFound404')
         }
 
 

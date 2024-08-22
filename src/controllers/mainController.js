@@ -12,8 +12,23 @@ const index = async (req, res) => {
     }
 }
 
+const aboutUs = (req, res) => {
+
+    res.render('acercaDeNosotros')
+}
+
+const fAQ = (req, res) => {
+    res.render('preguntasFrecuentes')
+}
+
+const contactForm = (req, res) => {
+    res.render('contacto')
+}
 
 
 module.exports = {
     index,
+    aboutUs,
+    fAQ,
+    contactForm
 }

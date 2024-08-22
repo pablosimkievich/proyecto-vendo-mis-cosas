@@ -13,6 +13,8 @@
 
     <main class="product-detail-all-container">
 
+      <% if(product) { %>
+
       <h1 class="product-title">Categoría: <%= product.categories.category_name %></h1>
       <h2 class="product-subtitle"><%= product.product_name %></h2>
 
@@ -47,14 +49,14 @@
 
         <div class="info-container">
 
-          <% if(product) { %>
+          
 
             <h1><%= product.product_name %></h1>
             <h4><%= product.product_description %></h4>
 
             <h2>$ <%= product.product_price %></h2>
           
-          <% } %>
+          
 
           <button class="btn">Comprar</button>
 
@@ -70,7 +72,11 @@
 
               </div>
 
+          <% } else if(!product) { %>
 
+            <h1 class="product-title">No existe el Producto <%= id %></h1>
+
+          <% } %>
 
             </div>
 
@@ -82,8 +88,46 @@
 
       </section>
 
+      <section class="related-products">
+
+        <h2 class="product-subtitle">Productos Relcionados</h2>
+
+        <div class="related-products-container">
+
+          <% relatedProducts ? relatedProducts.map (element => { %>
+
+            <a class="product-link" href="/usuarios/<%= product.users.id %>/productos/<%= element.id %>">
+              <article class="product-card">
+                <img
+                  class="product-image"
+                  src="/img/products/<%= element.main_image %>"
+                  alt="imagen-producto"
+                  style="max-width: 275px"
+                />
+    
+                <h3 class="product-name"><%= element.product_name %></h3>
+    
+                <p class="product-description">
+                  <%= element.product_description %>
+                </p>
+    
+                <p class="product-price">$ <%= element.product_price %></p>
+              </article>
+            </a>
+
+
+
+          <% }): ''; %>
+
+          
+
+        </div>
+
+      </section>
+
     </main>
 
-
+    <%- include('../partials/footer') %>
+    
   </body>
 </html>

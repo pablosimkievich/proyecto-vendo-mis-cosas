@@ -74,8 +74,18 @@ const productDetail = async (req, res) => {
             ]
         })
 
-        console.log(( product ))
-        res.render('product/productDetail', { product } )
+        if(product) {
+            const relatedProducts = await db.Product.findAll({
+                where: {
+                    category_id: product.category_id
+                },
+                limit: 4
+            })
+            console.log(( product ))
+            res.render('product/productDetail', { product, relatedProducts } )
+        } else {
+            res.render('notFound404')
+        }
 
     } catch(error) {
         console.log(error)
