@@ -36,8 +36,8 @@
 }
 
 .thumb {
-    max-width: 125px;
-    max-height: 125px;
+    max-width: 130px;
+    max-height: 130px;
     border-radius: 4px;
 }
 
@@ -53,6 +53,9 @@
 .info-container {
     margin-top: 50px;
     margin-right: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
 }
 
 .btn {
@@ -104,7 +107,6 @@
 .related-products-container {
     margin-top: 30px;
     margin-left: 30px;
-    padding-bottom: 60px;
     display: flex;
     flex-wrap: wrap;
     gap: 33px;
