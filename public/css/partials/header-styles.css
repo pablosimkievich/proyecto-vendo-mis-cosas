@@ -38,6 +38,7 @@
 .other-links-container {
     display: flex;
     justify-content: flex-end;
+    align-items: center;
     margin-right: 2em;
 }
 
@@ -54,7 +55,14 @@
     padding-left: 0.5em;
 }
 
-.lin::visited {
+.link::visited {
     text-decoration: none;
     color: var(--color-light);
+}
+
+.user-avatar-thumb {
+    max-width: 30px;
+    border-radius: 50%;
+    align-items: center;
+    transform: translate(0, 6px);
 }

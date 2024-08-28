@@ -19,7 +19,15 @@
             <div class="other-links">
                 <a href="/productos" class="link">Productos</a>
                 <a href="/usuarios" class="link">Usuarios</a>
-                <a href="/login" class="link">Login</a>
+                    <% if(!locals.isLogged) { %>
+                        <a href="/login" class="link">Login</a>
+                    <% } %>
+                    <% if(locals.isLogged) { %>
+                        <a class="link avatar-link" href="/usuarios/<%= locals.userLogged.id %>">
+                            <img src="/img/users/<%= locals.userLogged.user_avatar %>" class="user-avatar-thumb" alt="user_avatar">
+                        </a>
+                    <% } %>
+
             </div>
 
         </div>

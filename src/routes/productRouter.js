@@ -16,6 +16,6 @@ router.get('/usuarios/:id/productos/:id', productController.productDetail)
 
 router.get('/usuarios/:id/agregar-producto', productController.addProductForm)
 
-router.get('/usuarios/:id/actualizar-producto', productController.updateProductForm)
+router.get('/usuarios/:id/actualizar-producto/:id', productController.updateProductForm)
 
 module.exports = router

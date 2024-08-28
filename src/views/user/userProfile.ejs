@@ -29,17 +29,19 @@
 
                     <p class="user-data"> <%= user.user_email %> </p>
 
+                    <% if(locals.userLogged && locals.userLogged.id == user.id) { %>
+                        <a href="/usuarios/<%= locals.userLogged.id %>/agregar-producto">
+                            <button type="submit" class="panel-buttons">Agregar Producto</button>
+                        </a>
+
+                        
+                    <% } %>
+
                 </div>
 
             </article>
             
-        </section>
-
-             
-
-        
-
-            
+        </section>           
 
             <% if(user.products.length > 0) { %>
 
@@ -60,6 +62,15 @@
                         <h3 class="product-name"> <%= element.product_name %> </h2>
                         <p class="product-description"> <%= element.product_description %> </p>
                         <p class="product-price">$ <%= element.product_price %> </p>  
+
+                        <% if(locals.userLogged && locals.userLogged.id == user.id) { %>
+                            <a href="/usuarios/<%= locals.userLogged.id %>/actualizar-producto/<%= element.id %>">
+                                <button type="submit" class="control-panel-buttons">Editar Producto</button>
+                            </a>
+                            <a href="">
+                                <button type="submit" class="control-panel-buttons">Borrar Producto</button>
+                            </a>  
+                        <% } %>
 
                     </article>
                 </a>
