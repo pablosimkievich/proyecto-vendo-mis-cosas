@@ -1,18 +1,72 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/css/user/register-form-styles.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/css/user/register-form-styles.css" />
     <title>Vendo mis cosas</title>
-</head>
-<body>
-    
-    <header>
-        <%- include('../partials/header.ejs') %>
-    </header>
+  </head>
+  <body>
+    <header><%- include('../partials/header') %></header>
 
-    <h2>Soy Register Form</h2>
-</body>
+    <main class="register-all-container">
+      <h1 class="register-title">Registro</h1>
+
+      <div class="form-container">
+        <form class="form" method="POST" action="/register" id="registerForm" >
+          <h2 class="register-subtitle">Ingresa tus datos para registrarte</h2>
+
+          <div class="img-container">
+            <canvas id="avatarCanvas" width="200" height="200"></canvas>
+
+            <button id="changeAvatarButton" type="button">Cambiar Avatar</button>
+
+            <input type="hidden" name="user_avatar" id="avatarInput" />
+          </div>
+
+          <div class="input-container">
+            <label class="label" for="user_name">Nombre y Apellido <span class="red-star">*</span></label>
+            <input class="form-control" type="text" name="user_name"
+            value="<%= locals.oldData ? oldData.user_name : ''  %>" />
+            <% if(locals.errors && errors.user_name) { %>
+              <p class="error-msg"><%= errors.user_name.msg %></p>
+            <% } %>
+
+          </div>
+
+          <div class="input-container">
+            <label class="label" for="user_email">Email <span class="red-star">*</span></label>
+            <input class="form-control" type="text" name="user_email"
+            value="<%= locals.oldData ? oldData.user_email : '' %>" />
+            <% if(locals.errors && errors.user_email) { %>
+              <p class="error-msg"><%= errors.user_email.msg %></p>
+            <% } %>
+          </div>
+
+          <!--
+          <div class="textarea-container">
+            <label class="label" for="sales_description">Descripción de ventas</label><br>
+            <input class="form-textarea" name="sales_description" type="textarea">
+          </div>
+          -->
+
+
+          <div class="input-container">
+            <label class="label" for="password">Contraseña (mínimo 8 caracteres) <span class="red-star">*</span></label>
+            <input class="form-control" type="password" name="password" />
+            <% if(locals.errors && errors.password) { %>
+              <p class="error-msg"><%= errors.password.msg %></p>
+            <% } %> 
+          </div>
+
+          <button class="button" type="submit">Enviar</button>
+        </form>
+      </div>
+    </main>
+
+    <%- include('../partials/footer') %>
+
+    <script src="/js/registerAvatar.js"></script>
+  </body>
 </html>

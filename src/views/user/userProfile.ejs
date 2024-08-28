@@ -24,6 +24,7 @@
 
                 <div class="data-container">
 
+
                     <p class="user-data"> <%= user.sales_description %> </p>
 
                     <p class="user-data"> <%= user.user_email %> </p>
@@ -34,11 +35,22 @@
             
         </section>
 
-        <h2 class="user-subtitle">Productos a la venta</h2>
+             
+
+        
+
+            
+
+            <% if(user.products.length > 0) { %>
+
+                <h2 class="user-subtitle">Productos a la venta</h2> 
+            <% } else if(user.products.length === 0) { %>  
+                <h2 class="user-subtitle">No tiene Productos a la venta</h2> 
+            <% } %>
 
         <section class="products-container">
 
-            <% user.products.map ( element => { %>
+            <% user.products ? user.products.map ( element => { %>
 
                 <a class="product-link" href="/usuarios/<%= user.id %>/productos/<%= element.id %>">
                     <article class="product-card">
@@ -52,15 +64,28 @@
                     </article>
                 </a>
 
-            <% }) %>
+            <% }): ""; %>
+
+
+            
+
 
         </section>
 
+
+            <% if(user.vendor_user_reviews.length > 0) { %>
+                <h2 class="user-subtitle">Reseñas de otros Usuarios</h2>
+            <% } else if (user.vendor_user_reviews.length === 0) { %>
+                <h2 class="user-subtitle">No tiene Reseñas de otros Usuarios</h2>
+            <% } %>
+
         <section class="reviews-container">
+
+            
 
             <% user.vendor_user_reviews? user.vendor_user_reviews.map ( element => { %>
 
-                <h2 class="user-subtitle">Reseñas de otros Usuarios</h2>
+                
 
                 <article class="review-card">
 

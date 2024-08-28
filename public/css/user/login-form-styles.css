@@ -1,0 +1,89 @@
+
+.login-all-container {
+    background-color: var(--color-white);
+    min-height: 90vh;
+}
+
+.login-title {
+    margin-left: 30px;
+    padding-bottom: 0.5em;
+    padding-top: 0.5em;
+    color: var(--color-less-dark);
+    font-size: 1.8em;
+}
+
+.login-subtitle {
+    margin-left: 30px;
+    margin-right: 30px;
+    margin-top: 30px;
+    color: var(--color-less-dark);
+    text-align: center;
+}
+
+.form-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    max-width: 400px;
+    margin: auto;
+    margin-top: 50px;
+    border-radius: 4px;
+    background-color:var(--color-medium-light);
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 25px;
+    align-items: center;
+}
+
+.input-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: 15px;
+    min-width: 350px;
+}
+
+.error-msg {
+    color: tomato;
+    overflow-wrap: break-word;
+
+}
+
+.label {
+    color: var(--color-less-dark);
+    font-weight: 600;
+}
+
+
+.form-control {
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    border: none;
+    border-bottom: 3px solid var(--color-less-dark);
+    color: var(--color-less-dark);
+    min-height: 2.5em;
+    padding-left: 5px;
+    overflow-wrap: break-word;
+    white-space: normal;
+}
+
+.red-star {
+    font-size: 1.5em;
+    color: tomato;
+}
+
+
+.button {
+    margin-top: 25px;
+    margin-bottom: 25px;
+    padding: 10px;
+    background-color: var(--color-less-dark);
+    color: var(--color-white);
+    border: none;
+    border-radius: 4px;
+    min-width: 350px;
+}

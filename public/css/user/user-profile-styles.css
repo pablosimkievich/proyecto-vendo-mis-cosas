@@ -4,6 +4,7 @@
     padding-top: 15px; 
     padding-bottom: 30px;
     background-color: var(--color-white);
+    min-height: 90vh;
 }
 
 .user-title {

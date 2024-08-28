@@ -10,9 +10,44 @@
 <body>
 
     <header>
-        <%- include('../partials/header.ejs') %>
+        <%- include('../partials/header') %>
     </header>
 
-    <h2>Soy Login Form</h2>
+    <main class="login-all-container">
+
+        <h1 class="login-title">Ingreso</h1>
+
+        <div class="form-container">
+            <form action="/login" method="POST" class="form">
+
+                <h2 class="login-subtitle">Login</h2>
+
+                <div class="input-container">
+                    <label class="label" for="user_email">Email</label>
+                    <input class="form-control" type="text" name="user_email"
+                    value="<%= locals.oldData ? oldData.user_email : '' %>" >
+                    <% if(locals.errors && errors.user_email) { %>
+                        <p class="error-msg"><%= errors.user_email.msg %></p>
+                    <% } %>
+                </div>
+
+                <div class="input-container">
+                    <label class="label" for="password">Password</label>
+                    <input class="form-control" type="password" name="password">
+                    <% if(locals.errors && errors.password) { %>
+                        <p class="error-msg"><%= errors.password.msg %></p>
+                    <% } %>
+                </div>
+
+                <button class="button" type="submit">Enviar</button>
+            </form>
+        </div>
+
+    </main>
+
+    
+
+
+        <%- include('../partials/footer') %>
 </body>
 </html>

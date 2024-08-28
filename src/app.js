@@ -8,14 +8,24 @@ const userRouter = require('./routes/userRouter.js')
 
 const morgan = require('morgan')
 const methodOverride = require('method-override')
+const session = require('express-session');
+const cookies = require('cookie-parser');
+const userLoggedMiddleware = require('./middlewares/userLoggedMiddleware.js');
 
 // middlewares
 
 app.use(express.static(path.join(__dirname, "../public")))
 app.use(morgan('dev'))
-app.use(express.urlencoded({ extended: false}))
+app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 app.use(methodOverride('method'))
+app.use(session({
+    secret: "Secreto",
+    resave: false,
+    saveUninitialized: false
+}))
+app.use(cookies());
+app.use(userLoggedMiddleware);
 
 app.set('view engine', 'ejs') // motor de plantillas
 app.set('views', 'src/views') // carpeta de las vistas
