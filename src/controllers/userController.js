@@ -117,8 +117,20 @@ const registerProcess = async (req, res) => {
   }
 };
 
-const updateUserForm = (req, res) => {
-  res.render("user/updateUserForm");
+const updateUserForm = async (req, res) => {
+  const id = req.params.id;
+  const user = await db.User.findByPk(id);
+
+  res.render("user/updateUserForm", { user });
+};
+
+const updateUserProcess = async (req, res) => {
+  console.log(req.body);
+  return;
+};
+
+const userDestroy = async (req, res) => {
+  console.log("User Deletion");
 };
 
 const loginForm = (req, res) => {
@@ -160,7 +172,7 @@ const loginProcess = async (req, res) => {
   }
 
   const password = req.body.password;
-  let passwordMatch = true /*bcrypt.compareSync(password, userToLogin.password);*/
+  let passwordMatch = true; /*bcrypt.compareSync(password, userToLogin.password);*/
 
   if (!passwordMatch) {
     res.render("user/loginForm", {
@@ -175,7 +187,7 @@ const loginProcess = async (req, res) => {
     delete userToLogin.password;
     req.session.userLogged = userToLogin;
 
-    req.body.remember = true
+    // req.body.remember = true
     if (req.body.remember) {
       res.cookie("userEmail", req.body.user_email, { maxAge: 1000 * 120 });
     }
@@ -188,13 +200,22 @@ const reviewUserForm = (req, res) => {
   res.render("user/reviewUserForm");
 };
 
+const logout = (req, res) => {
+  res.clearCookie("userEmail");
+  req.session.destroy();
+  return res.redirect("/");
+};
+
 module.exports = {
   userList,
   userProfile,
   registerForm,
   registerProcess,
   updateUserForm,
+  updateUserProcess,
+  userDestroy,
   reviewUserForm,
   loginForm,
   loginProcess,
+  logout,
 };

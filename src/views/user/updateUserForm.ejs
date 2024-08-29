@@ -5,13 +5,44 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/user/update-user-form-styles.css">
-    <title>Document</title>
+    <title>Vendo Mis Cosas</title>
 </head>
 <body>
     <header>
-        <%- include('../partials/header.ejs') %>
+        <%- include('../partials/header') %>
     </header>
 
-    <h2>Soy Update User Form</h2>
+        <main class="update-user-all-container">
+            <h1 class="update-user-title">Actualizar Usuario</h1>
+
+            <div class="form-container">
+                <form action="/actualizar-usuario?_method=PUT" method="POST" class="form" id="registerForm">
+                    <h2 class="update-user-subtitle">Actualiza tus datos</h2>
+
+                    <div class="img-container">
+                        <img id="avatarCanvas" src="/img/users/<%= user.user_avatar %>" alt="user-avatar">
+
+                        <button  id="changeAvatarButton" type="button">Cambiar Avatar</button>
+                    </div>
+
+                    <div class="input-container">
+                        <label class="label" for="user_name">Nombre y Apellido <span class="red-star">*</span></label>
+                        <input type="text" class="form-control" name="user_name">
+                    </div>
+
+                    <div class="input-container">
+                        <label class="label" for="user_email">Email <span class="red-star">*</span></label>
+                        <input type="text" class="form-control" name="user_email">
+                    </div>
+
+                    <button class="button" type="submit">Enviar</button>
+
+                </form>
+            </div>
+        </main>
+
+
+
+        <%- include('../partials/footer') %>
 </body>
 </html>

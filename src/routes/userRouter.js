@@ -21,8 +21,12 @@ router.post('/login', validateLogin, userController.loginProcess)
 
 
 router.get('/usuarios/:id/actualizar-usuario', userController.updateUserForm)
+router.put('/actualizar-usuario', userController.updateUserProcess)
+router.delete('/delete/:id', userController.userDestroy)
 
 
 router.get('/usuarios/:id/review', userController.reviewUserForm)
+
+router.get('/logout', userController.logout)
 
 module.exports = router

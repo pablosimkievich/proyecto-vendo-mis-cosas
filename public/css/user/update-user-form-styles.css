@@ -1,10 +1,10 @@
 
-.login-all-container {
+.update-user-all-container {
     background-color: var(--color-white);
     min-height: 90vh;
 }
 
-.login-title {
+.update-user-title {
     margin-left: 30px;
     padding-bottom: 0.5em;
     padding-top: 0.5em;
@@ -12,7 +12,7 @@
     font-size: 1.8em;
 }
 
-.login-subtitle {
+.update-user-subtitle {
     margin-left: 30px;
     margin-right: 30px;
     margin-top: 30px;
@@ -37,6 +37,31 @@
     flex-direction: column;
     padding-bottom: 25px;
     align-items: center;
+}
+
+.img-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 4px;
+}
+
+#avatarCanvas {
+    border-radius: 4px;
+    width: 150px;
+    margin-top: 25px;
+    margin-bottom: 25px;
+}
+
+#changeAvatarButton {
+    margin-top: 5px;
+    margin-bottom: 25px;
+    padding: 10px;
+    background-color: var(--color-less-dark);
+    color: var(--color-white);
+    border: none;
+    border-radius: 4px;
 }
 
 .input-container {
@@ -75,24 +100,6 @@
     font-size: 1.5em;
     color: tomato;
 }
-
-.check-box {
-    display: block;
-    margin: auto;
-    margin-top: 20px;
-    justify-content: center;
-    width: 30%;
-    font-size: 16px;
-    border-radius: 8px;
-    border: none;
-    min-height: 30px;
-    border: none;
-    background-color: #AEBDCA;
-    color: var(--color-dark);
-    font-weight: 600;
-}
-
-
 
 .button {
     margin-top: 25px;

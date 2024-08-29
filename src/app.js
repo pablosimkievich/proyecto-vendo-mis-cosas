@@ -18,7 +18,7 @@ app.use(express.static(path.join(__dirname, "../public")))
 app.use(morgan('dev'))
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
-app.use(methodOverride('method'))
+app.use(methodOverride('_method'))
 app.use(session({
     secret: "Secreto",
     resave: false,
