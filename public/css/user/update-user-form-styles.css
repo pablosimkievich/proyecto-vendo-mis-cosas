@@ -87,6 +87,25 @@
     min-width: 350px;
 }
 
+.textarea-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: 25px;
+    min-width: 300px;
+}
+
+.form-textarea {
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    border: none;
+    border-bottom: 3px solid var(--color-less-dark);
+    color: var(--color-less-dark);
+    height: 3.5em;
+    min-width: 350px;
+    padding-left: 5px;
+}
+
 .user-id {
     display: none; 
 }

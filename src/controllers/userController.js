@@ -103,6 +103,7 @@ const registerProcess = async (req, res) => {
       password: bcrypt.hashSync(req.body.password, 10),
       user_avatar: fileName,
       user_type_fk_id: 1,
+      sales_description: req.body.sales_description
     };
 
     await db.User.create(newUser);
@@ -126,7 +127,7 @@ const updateUserForm = async (req, res) => {
 };
 
 const updateUserProcess = async (req, res) => {
-  // console.log(req.body)
+  console.log(req.body)
   const resultValidation = validationResult(req);
   const userToUpdate = await db.User.findByPk(req.body.id);
   const userInDB = await db.User.findOne({
@@ -155,7 +156,7 @@ const updateUserProcess = async (req, res) => {
           msg: "El email ya se encuentra registrado",
         },
       },
-      oldDate: req.body,
+      oldData: req.body,
       user: userToUpdate,
     });
   }
@@ -205,6 +206,8 @@ const updateUserProcess = async (req, res) => {
   }
 
   // usuario actualizado
+  const salesDescription = req.body.sales_description === "" ? userToUpdate.sales_description : req.body.sales_description;
+  
   let userUpdated = {
     id: req.body.id,
     user_type_fk_id: 1,
@@ -212,7 +215,7 @@ const updateUserProcess = async (req, res) => {
     user_email: req.body.user_email,
     user_avatar: fileName,
     password: userToUpdate.password,
-    sales_desciption: userToUpdate.sales_description,
+    sales_description:  salesDescription,
   };
 
   try {
