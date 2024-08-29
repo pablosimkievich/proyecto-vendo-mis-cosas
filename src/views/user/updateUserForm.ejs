@@ -16,23 +16,38 @@
             <h1 class="update-user-title">Actualizar Usuario</h1>
 
             <div class="form-container">
-                <form action="/actualizar-usuario?_method=PUT" method="POST" class="form" id="registerForm">
+                <form action="/actualizar-usuario?_method=PUT" method="POST" class="form" id="updateUserForm">
                     <h2 class="update-user-subtitle">Actualiza tus datos</h2>
 
                     <div class="img-container">
-                        <img id="avatarCanvas" src="/img/users/<%= user.user_avatar %>" alt="user-avatar">
-
+                        <img id="avatarImg" src="/img/users/<%= user.user_avatar %>" alt="user-avatar">
+                        <canvas class="hide-avatar" id="avatarCanvas" width="200" height="200"></canvas>
+                        <input class="hide-avatar "
+                        name="user_avatar" id="avatarInput" />
                         <button  id="changeAvatarButton" type="button">Cambiar Avatar</button>
                     </div>
 
                     <div class="input-container">
+                        <input type="text" name="id" readonly class="user-id" 
+                        value="<%= user.id %>" >
+                    </div>
+
+                    <div class="input-container">
                         <label class="label" for="user_name">Nombre y Apellido <span class="red-star">*</span></label>
-                        <input type="text" class="form-control" name="user_name">
+                        <input type="text" class="form-control" name="user_name"
+                        value="<%= locals.oldData ? oldData.user_name : user.user_name %>" >
+                        <% if(locals.errors && errors.user_name) { %>
+                            <p class="error-msg"><%= errors.user_name.msg %></p>
+                        <% } %>
                     </div>
 
                     <div class="input-container">
                         <label class="label" for="user_email">Email <span class="red-star">*</span></label>
-                        <input type="text" class="form-control" name="user_email">
+                        <input type="text" class="form-control" name="user_email"
+                        value="<%= locals.oldData ? oldData.user_email : user.user_email %>" >
+                        <% if(locals.errors && errors.user_email) { %>
+                            <p class="error-msg"><%= errors.user_email.msg  %></p>
+                        <% } %>
                     </div>
 
                     <button class="button" type="submit">Enviar</button>
@@ -44,5 +59,7 @@
 
 
         <%- include('../partials/footer') %>
+
+        <script src="/js/updateAvatar.js"></script>
 </body>
 </html>

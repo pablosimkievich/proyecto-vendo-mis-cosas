@@ -3,6 +3,7 @@ const router = express.Router()
 const userController = require('../controllers/userController.js')
 const validateRegister = require('../middlewares/registerFormValidation.js')
 const validateLogin = require('../middlewares/loginFormValidation.js')
+const validateUserUpdate = require('../middlewares/userUpdateValidation.js')
 
 
 // ? Lista de Usuarios
@@ -21,7 +22,7 @@ router.post('/login', validateLogin, userController.loginProcess)
 
 
 router.get('/usuarios/:id/actualizar-usuario', userController.updateUserForm)
-router.put('/actualizar-usuario', userController.updateUserProcess)
+router.put('/actualizar-usuario', validateUserUpdate, userController.updateUserProcess)
 router.delete('/delete/:id', userController.userDestroy)
 
 

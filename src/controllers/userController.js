@@ -3,6 +3,7 @@ const fs = require("fs");
 const path = require("path");
 const bcrypt = require("bcryptjs");
 const { validationResult } = require("express-validator");
+const { devNull } = require("os");
 
 const userList = async (req, res) => {
   try {
@@ -125,8 +126,111 @@ const updateUserForm = async (req, res) => {
 };
 
 const updateUserProcess = async (req, res) => {
-  console.log(req.body);
-  return;
+  // console.log(req.body)
+  const resultValidation = validationResult(req);
+  const userToUpdate = await db.User.findByPk(req.body.id);
+  const userInDB = await db.User.findOne({
+    where: {
+      user_email: req.body.user_email,
+    },
+  });
+
+  // Verificar si hay errores de validación
+  if (resultValidation.errors.length > 0) {
+    console.log(resultValidation);
+
+    res.render("user/updateUserForm", {
+      errors: resultValidation.mapped(),
+      oldData: req.body,
+      user: userToUpdate,
+    });
+  }
+
+  // Verificar que el nuevo mail no está en la DB
+  // O que ese D
+  if (userInDB && userInDB.id != req.body.id) {
+    res.render("user/updateUserForm", {
+      errors: {
+        user_email: {
+          msg: "El email ya se encuentra registrado",
+        },
+      },
+      oldDate: req.body,
+      user: userToUpdate,
+    });
+  }
+
+  // Si no hay errores, proceder a guardar el avatar
+  // Si no se ha cambiado el avatar, mantener el anterior
+  let fileName = userToUpdate.user_avatar;
+
+  if (req.body.user_avatar && req.body.user_avatar.value !== "") {
+    // Procesar el nuevo avatar si se ha cambiado
+    const user_avatar = req.body.user_avatar;
+    const base64Data = user_avatar.replace(/^data:image\/png;base64,/, "");
+    const timestamp = Date.now();
+    fileName = `avatar_${timestamp}.png`;
+    const filePath = path.join(
+      __dirname,
+      "..",
+      "..",
+      "public",
+      "img",
+      "users",
+      fileName
+    );
+
+    await fs.promises.writeFile(filePath, base64Data, "base64");
+
+    // Eliminar la imagen anterior si es diferente
+    if (userToUpdate.user_avatar && userToUpdate.user_avatar !== fileName) {
+      const oldFilePath = path.join(
+        __dirname,
+        "..",
+        "..",
+        "public",
+        "img",
+        "users",
+        userToUpdate.user_avatar
+      );
+      try {
+        await fs.promises.unlink(oldFilePath);
+      } catch (error) {
+        console.log(`Error al eliminar la imagen anterior: ${error}`);
+      }
+    }
+  } else {
+    // Si no se subió una nueva imagen, mantenemos la anterior
+    fileName = userToUpdate.user_avatar;
+  }
+
+  // usuario actualizado
+  let userUpdated = {
+    id: req.body.id,
+    user_type_fk_id: 1,
+    user_name: req.body.user_name,
+    user_email: req.body.user_email,
+    user_avatar: fileName,
+    password: userToUpdate.password,
+    sales_desciption: userToUpdate.sales_description,
+  };
+
+  try {
+    console.log(req.body);
+    await db.User.update(userUpdated, {
+      where: {
+        id: userToUpdate.id,
+      },
+    });
+
+    req.session.userLogged = req.body;
+    res.locals.userLogged = req.session.userLogged;
+    req.session.userLogged.user_avatar = fileName;
+    res.locals.userLogged.user_avatar = fileName;
+    res.redirect("/");
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 const userDestroy = async (req, res) => {
