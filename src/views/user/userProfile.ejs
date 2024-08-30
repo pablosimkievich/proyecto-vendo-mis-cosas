@@ -30,12 +30,16 @@
                     <p class="user-data"> <%= user.user_email %> </p>
 
                     <% if(locals.userLogged && locals.userLogged.id == user.id) { %>
-                        <a href="/usuarios/<%= locals.userLogged.id %>/agregar-producto">
+                        <a href="/usuarios/<%= user.id %>/agregar-producto">
                             <button type="submit" class="panel-buttons">Agregar Producto</button>
                         </a>
-                        <a href="/usuarios/<%= locals.userLogged.id %>/actualizar-usuario">
+                        <a href="/usuarios/<%= user.id %>/actualizar-usuario">
                             <button type="submit" class="panel-buttons">Actualizar Usuario</button>
                         </a>
+                        <form action="/usuarios/delete/<%= user.id %>?_method=DELETE" method="POST" style="display:inline;">
+                            
+                            <button type="submit" class="panel-buttons">Borrar Usuario</button>
+                        </form>
 
                         
                     <% } %>

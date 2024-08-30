@@ -22,6 +22,9 @@ module.exports = (sequelize, dataTypes) => {
         },
         user_type_fk_id: {
             type: dataTypes.INTEGER
+        },
+        status: {
+            type: dataTypes.STRING
         }
     },
     {

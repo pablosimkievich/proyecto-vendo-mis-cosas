@@ -7,7 +7,11 @@ const { devNull } = require("os");
 
 const userList = async (req, res) => {
   try {
-    const allUsers = await db.User.findAll();
+    const allUsers = await db.User.findAll({
+      where: {
+        status: "Activo",
+      },
+    });
     res.render("user/userList", { allUsers });
   } catch (error) {
     console.log(error);
@@ -18,7 +22,11 @@ const userProfile = async (req, res) => {
   try {
     const id = req.params.id;
 
-    const user = await db.User.findByPk(id, {
+    const user = await db.User.findOne({
+      where: {
+        id: id,
+        status: "Activo",
+      },
       include: [
         {
           association: "vendor_user_reviews",
@@ -103,7 +111,8 @@ const registerProcess = async (req, res) => {
       password: bcrypt.hashSync(req.body.password, 10),
       user_avatar: fileName,
       user_type_fk_id: 1,
-      sales_description: req.body.sales_description
+      sales_description: req.body.sales_description,
+      status: 'Activo'
     };
 
     await db.User.create(newUser);
@@ -127,7 +136,7 @@ const updateUserForm = async (req, res) => {
 };
 
 const updateUserProcess = async (req, res) => {
-  console.log(req.body)
+  console.log(req.body);
   const resultValidation = validationResult(req);
   const userToUpdate = await db.User.findByPk(req.body.id);
   const userInDB = await db.User.findOne({
@@ -206,8 +215,11 @@ const updateUserProcess = async (req, res) => {
   }
 
   // usuario actualizado
-  const salesDescription = req.body.sales_description === "" ? userToUpdate.sales_description : req.body.sales_description;
-  
+  const salesDescription =
+    req.body.sales_description === ""
+      ? userToUpdate.sales_description
+      : req.body.sales_description;
+
   let userUpdated = {
     id: req.body.id,
     user_type_fk_id: 1,
@@ -215,7 +227,8 @@ const updateUserProcess = async (req, res) => {
     user_email: req.body.user_email,
     user_avatar: fileName,
     password: userToUpdate.password,
-    sales_description:  salesDescription,
+    sales_description: salesDescription,
+    status: 'Activo'
   };
 
   try {
@@ -236,9 +249,37 @@ const updateUserProcess = async (req, res) => {
   }
 };
 
+
+
 const userDestroy = async (req, res) => {
-  console.log("User Deletion");
+  try {
+    const id = parseInt(req.params.id);
+    const user = await db.User.findByPk(id);
+    console.log('deletion')
+
+    if (!req.session.userLogged) {
+      return res.render("notFound404");
+    } else if (parseInt(req.session.userLogged.id) !== id) {
+      return res.render("notFound404");
+    }
+
+    if (user && parseInt(req.session.userLogged.id) === id) {
+      console.log('deleted')
+      await db.User.update({ status: 'Inactivo' }, {
+         where: { 
+          id: id
+         }
+         });
+      req.session.destroy();
+      res.redirect('/')
+    } else {
+      res.render("notFound404");
+    }
+  } catch (error) {
+    console.log(error);
+  }
 };
+
 
 const loginForm = (req, res) => {
   res.render("user/loginForm");
@@ -303,9 +344,11 @@ const loginProcess = async (req, res) => {
   }
 };
 
+
 const reviewUserForm = (req, res) => {
   res.render("user/reviewUserForm");
 };
+
 
 const logout = (req, res) => {
   res.clearCookie("userEmail");
