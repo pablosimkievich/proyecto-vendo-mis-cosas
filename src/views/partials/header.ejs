@@ -1,66 +1,98 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/css//partials/header-styles.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/css//partials/header-styles.css" />
     <title>Document</title>
-</head>
-<body>
+  </head>
+  <body>
     <div class="header-container">
-        <div class="home-page-link-container">
-            <div class="homer-page-link">
-                <a class="link logo" href="/">Vendo Mis Cosas</a>
-                <span class="dropdown">
-                    <span  class="link menu dropbtn" href="">Categorías
-                        <div class="dropdown-content">
-                            <a class="link categories" href="/categorias/1">Electrónica y Tecnología</a>
-                            <a class="link categories" href="/categorias/2">Salud y Belleza</a>
-                            <a class="link categories" href="/categorias/3">Hogar y Jardín</a>
-                            <a class="link categories" href="/categorias/4">Deportes y Fitness</a>
-                            <a class="link categories" href="/categorias/5">Libros y Medios</a>
-                            <a class="link categories" href="/categorias/6">Juguetes</a>
-                            <a class="link categories" href="/categorias/7">Herramientas</a>
-                            <a class="link categories" href="/categorias/8">Música y Equipamiento Musical</a>
-                            <a class="link categories" href="/categorias/9">Arte y Decoración</a>
-                            <a class="link categories" href="/categorias/10">Joyería y Relojes</a>
-                            <a class="link categories" href="/categorias/11">Ropa y Accesorios</a>
-                            <a class="link categories" href="/categorias/12">Calzado</a>
-                            <a class="link categories" href="/categorias/13">Bolsos y Carteras</a>
-                            <a class="link categories" href="/categorias/14">Productos para Mascotas</a>
-                            <a class="link categories" href="/categorias/15">Coleccionables</a>
-                            <a class="link categories" href="/categorias/16">Variedades y Misceláneas</a>
-                        </div>
-
-                    </span>
-
-
-                </span>
-
-            </div>
-          
+      <div class="home-page-link-container">
+        <div class="homer-page-link">
+          <a class="link logo" href="/">Vendo Mis Cosas</a>
+          <span class="dropdown">
+            <span class="link menu dropbtn" href=""
+              >Categorías
+              <div class="dropdown-content">
+                <a class="link categories" href="/categorias/1"
+                  >Electrónica y Tecnología</a
+                >
+                <a class="link categories" href="/categorias/2"
+                  >Salud y Belleza</a
+                >
+                <a class="link categories" href="/categorias/3"
+                  >Hogar y Jardín</a
+                >
+                <a class="link categories" href="/categorias/4"
+                  >Deportes y Fitness</a
+                >
+                <a class="link categories" href="/categorias/5"
+                  >Libros y Medios</a
+                >
+                <a class="link categories" href="/categorias/6">Juguetes</a>
+                <a class="link categories" href="/categorias/7">Herramientas</a>
+                <a class="link categories" href="/categorias/8"
+                  >Música y Equipamiento Musical</a
+                >
+                <a class="link categories" href="/categorias/9"
+                  >Arte y Decoración</a
+                >
+                <a class="link categories" href="/categorias/10"
+                  >Joyería y Relojes</a
+                >
+                <a class="link categories" href="/categorias/11"
+                  >Ropa y Accesorios</a
+                >
+                <a class="link categories" href="/categorias/12">Calzado</a>
+                <a class="link categories" href="/categorias/13"
+                  >Bolsos y Carteras</a
+                >
+                <a class="link categories" href="/categorias/14"
+                  >Productos para Mascotas</a
+                >
+                <a class="link categories" href="/categorias/15"
+                  >Coleccionables</a
+                >
+                <a class="link categories" href="/categorias/16"
+                  >Variedades y Misceláneas</a
+                >
+              </div>
+            </span>
+          </span>
         </div>
-        <div class="other-links-container">
-            <div class="other-links">
-                <a href="/productos" class="link">Productos</a>
-                <a href="/usuarios" class="link">Usuarios</a>
-                    <% if(!locals.isLogged) { %>
-                        <a href="/login" class="link">Login</a>
-                    <% } %>
-                    <% if(locals.isLogged) { %>
-                        <a class="link avatar-link" href="/usuarios/<%= locals.userLogged.id %>">
-                            <img src="/img/users/<%= locals.userLogged.user_avatar %>" class="user-avatar-thumb" alt="user_avatar">
-                        </a>
-                    <% } %>
+      </div>
+      <div class="other-links-container">
+        <div class="other-links">
+          <a href="/productos" class="link">Productos</a>
+          <a href="/usuarios" class="link">Usuarios</a>
+          <% if(!locals.isLogged) { %>
+          <a href="/login" class="link">Login</a>
+          <% } %> <% if(locals.isLogged) { %>
+          <a
+            class="link avatar-link"
+            href="/usuarios/<%= locals.userLogged.id %>"
+          >
+          <div class="user-avatar-thumb">
+            <img
+              src="/img/users/<%= locals.userLogged.user_avatar %>"
+              class="user-avatar-thumb"
+              alt="user_avatar"
+            />
+          </a>
+          <div class="dropdown-menu">
+            <a class=" categories" href="/usuarios/<%= locals.userLogged.id%>"
+              >Perfil</a
+            >
+            <a class=" categories" href="/logout">Logout</a>
+          </div>
+          </div>
 
-            </div>
 
+          <% } %>
         </div>
-
+      </div>
     </div>
-</body>
+  </body>
 </html>
-
-
-

@@ -340,7 +340,7 @@ const loginProcess = async (req, res) => {
       res.cookie("userEmail", req.body.user_email, { maxAge: 1000 * 120 });
     }
 
-    return res.redirect("/");
+    return res.redirect(`/usuarios/${req.session.userLogged.id}`);
   }
 };
 

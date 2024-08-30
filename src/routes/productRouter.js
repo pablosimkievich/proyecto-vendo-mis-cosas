@@ -15,8 +15,8 @@ router.get('/categorias/:id', productController.getCategory)
 router.get('/usuarios/:id/productos/:id', productController.productDetail)
 
 
+// ? Agregar y actualizar producto
 router.get('/usuarios/:userId/agregar-producto', onlyAuthMidleware, productController.addProductForm)
-
 router.get('/usuarios/:userId/actualizar-producto/:productId', onlyAuthMidleware, productController.updateProductForm)
 
 module.exports = router
