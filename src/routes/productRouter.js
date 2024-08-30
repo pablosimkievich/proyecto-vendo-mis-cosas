@@ -17,6 +17,8 @@ router.get('/usuarios/:id/productos/:id', productController.productDetail)
 
 // ? Agregar y actualizar producto
 router.get('/usuarios/:userId/agregar-producto', onlyAuthMidleware, productController.addProductForm)
-router.get('/usuarios/:userId/actualizar-producto/:productId', onlyAuthMidleware, productController.updateProductForm)
+router.post('/usuarios/agregar-producto', productController.createProduct)
 
+router.get('/usuarios/:userId/actualizar-producto/:productId', onlyAuthMidleware, productController.updateProductForm)
+router.put('/usuarios/:userId/actualizar-producto/:productId', productController.updateProduct)
 module.exports = router

@@ -14,14 +14,14 @@
       <h1 class="add-product-title">Agregar Producto</h1>
 
       <div class="form-container">
-        <form action="" class="form">
+        <form action="/usuarios/agregar-producto" method="POST" class="form">
           <h2 class="add-product-subtitle">Alta de Producto</h2>
 
           <div class="input-container">
             <label for="" class="label"
               >Nombre del Producto <span class="red-star">*</span>
             </label>
-            <input class="form-control" type="text" class="product_name" />
+            <input class="form-control" type="text" name="product_name" />
           </div>
 
           <div class="textarea-container">

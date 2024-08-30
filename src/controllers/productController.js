@@ -22,6 +22,8 @@ const productList = async (req, res) => {
 }
 
 
+
+
 const getCategory = async (req, res) => {
     try {
         /* if(req.params.id > 16 || req.params.id < 1) {
@@ -54,6 +56,9 @@ const getCategory = async (req, res) => {
         console.log(error)
     }
 }
+
+
+
 
 const productDetail = async (req, res) => {
     try {
@@ -92,12 +97,25 @@ const productDetail = async (req, res) => {
     }
 }
 
+
+
+
 const addProductForm = async (req, res) => {
 
     const categories = await db.Category.findAll()
 
     res.render('product/addProductForm', { categories })
 }
+
+
+
+
+const createProduct = async (req, res) => {
+    console.log(req.body)
+}
+
+
+
 
 const updateProductForm = async (req, res) => {
 
@@ -109,6 +127,9 @@ const updateProductForm = async (req, res) => {
         include: [
             {
                 association: 'product_additional_images'
+            },
+            {
+                association: 'users'
             }
         ]
     })
@@ -117,10 +138,21 @@ const updateProductForm = async (req, res) => {
 }
 
 
+
+
+const updateProduct = async (req, res) => {
+    console.log(req.body)
+}
+
+
+
+
 module.exports = {
     productList,
     getCategory,
     productDetail,
     addProductForm,
+    createProduct,
+    updateProduct,
     updateProductForm
 }

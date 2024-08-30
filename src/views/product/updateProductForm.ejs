@@ -17,7 +17,7 @@
         <h1 class="update-product-title">Modificar Producto</h1>
 
         <div class="form-container">
-            <form action="" class="form">
+            <form action="/usuarios/<%= product.users.id %>/actualizar-producto/<%= product.id %>?_method=PUT" method="POST" class="form">
                 <h2 class="update-product-subtitle">Modificación de Producto</h2>
 
                 <div class="img-container">
@@ -31,7 +31,7 @@
 
                 <div class="input-container">
                     <label for="" class="label">Nombre del Producto <span class="red-star">*</span> </label>
-                    <input class="form-control" type="text" class="product_name">
+                    <input class="form-control" type="text" name="product_name">
                 </div>
 
                 <div class="textarea-container">
