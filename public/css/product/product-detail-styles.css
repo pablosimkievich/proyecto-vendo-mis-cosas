@@ -35,10 +35,36 @@
     max-width: 25px;
 }
 
+.thumbs-container:hover {
+    opacity: 1;
+}
+
 .thumb {
     max-width: 130px;
     max-height: 130px;
     border-radius: 4px;
+}
+
+.thumb:hover {
+    opacity: 0.8;
+    filter: grayscale(20%) brightness(80%);
+}
+
+.thumb.active {
+    border: 2px solid green; /* Opcional: resalta el thumb activo */
+}
+
+.thumb:not(:hover) {
+ 
+}
+
+.user-card:hover {
+    opacity: 0.8;
+    filter: grayscale(20%) brightness(80%);
+}
+
+.user-link:hover {
+    filter: grayscale(20%) brightness(70%);
 }
 
 .image-display {
