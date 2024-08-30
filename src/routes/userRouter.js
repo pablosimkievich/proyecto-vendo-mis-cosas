@@ -4,6 +4,8 @@ const userController = require('../controllers/userController.js')
 const validateRegister = require('../middlewares/registerFormValidation.js')
 const validateLogin = require('../middlewares/loginFormValidation.js')
 const validateUserUpdate = require('../middlewares/userUpdateValidation.js')
+const onlyGuestMiddleware = require('../middlewares/onlyGuestMiddleware.js')
+const onlyAuthMidleware = require('../middlewares/onlyAuthMiddleware.js')
 
 
 // ? Lista de Usuarios
@@ -13,21 +15,22 @@ router.get('/usuarios', userController.userList)
 router.get('/usuarios/:id', userController.userProfile)
 
 
-router.get('/register', userController.registerForm)
+// ? Registro y Login y Logout
+router.get('/register', onlyGuestMiddleware, userController.registerForm)
 router.post('/register', validateRegister, userController.registerProcess)
 
-
-router.get('/login', userController.loginForm)
+router.get('/login', onlyGuestMiddleware, userController.loginForm)
 router.post('/login', validateLogin, userController.loginProcess)
+router.get('/logout', userController.logout)
 
-
-router.get('/usuarios/:id/actualizar-usuario', userController.updateUserForm)
+// ? Update y Delete
+router.get('/usuarios/:userId/actualizar-usuario', onlyAuthMidleware, userController.updateUserForm)
 router.put('/actualizar-usuario', validateUserUpdate, userController.updateUserProcess)
 router.delete('/usuarios/delete/:id', userController.userDestroy)
 
 
-router.get('/usuarios/:id/review', userController.reviewUserForm)
+router.get('/usuarios/:userId/review', onlyAuthMidleware, userController.reviewUserForm)
 
-router.get('/logout', userController.logout)
+
 
 module.exports = router

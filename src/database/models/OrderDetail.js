@@ -11,7 +11,7 @@ module.exports = (sequelize, dataTypes) => {
         product_fk_id: {
             type: dataTypes.INTEGER
         },
-        quntity: {
+        quantity: {
             type: dataTypes.INTEGER
         },
         fk_vendor_user_id: {

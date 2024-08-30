@@ -1,6 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const productController = require('../controllers/productController.js')
+const onlyAuthMidleware = require('../middlewares/onlyAuthMiddleware.js')
 
 
 // ? Lista de Productos
@@ -14,8 +15,8 @@ router.get('/categorias/:id', productController.getCategory)
 router.get('/usuarios/:id/productos/:id', productController.productDetail)
 
 
-router.get('/usuarios/:id/agregar-producto', productController.addProductForm)
+router.get('/usuarios/:userId/agregar-producto', onlyAuthMidleware, productController.addProductForm)
 
-router.get('/usuarios/:id/actualizar-producto/:id', productController.updateProductForm)
+router.get('/usuarios/:userId/actualizar-producto/:productId', onlyAuthMidleware, productController.updateProductForm)
 
 module.exports = router

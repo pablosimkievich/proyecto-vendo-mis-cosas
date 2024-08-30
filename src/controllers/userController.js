@@ -129,7 +129,7 @@ const registerProcess = async (req, res) => {
 };
 
 const updateUserForm = async (req, res) => {
-  const id = req.params.id;
+  const id = req.params.userId;
   const user = await db.User.findByPk(id);
 
   res.render("user/updateUserForm", { user });
