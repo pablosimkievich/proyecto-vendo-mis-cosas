@@ -92,12 +92,28 @@ const productDetail = async (req, res) => {
     }
 }
 
-const addProductForm = (req, res) => {
-    res.render('product/addProductForm')
+const addProductForm = async (req, res) => {
+
+    const categories = await db.Category.findAll()
+
+    res.render('product/addProductForm', { categories })
 }
 
-const updateProductForm = (req, res) => {
-    res.render('product/updateProductForm')
+const updateProductForm = async (req, res) => {
+
+    const categories = await db.Category.findAll()
+
+    const id = parseInt(req.params.productId)
+
+    const product = await db.Product.findByPk(id, {
+        include: [
+            {
+                association: 'product_additional_images'
+            }
+        ]
+    })
+
+    res.render('product/updateProductForm', { categories, product })
 }
 
 

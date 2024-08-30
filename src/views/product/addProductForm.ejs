@@ -1,18 +1,85 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/css/product/add-product-form-styles.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/css/product/add-product-form-styles.css" />
     <title>Vendo Mis Cosas</title>
-</head>
-<body>
+  </head>
+  <body>
+    <header><%- include('../partials/header') %></header>
 
-    <header>
-        <%- include('../partials/header.ejs') %>
-    </header>
-    
-    <h2>Soy Add Product Form</h2>
-</body>
+    <main class="add-product-all-container">
+      <h1 class="add-product-title">Agregar Producto</h1>
+
+      <div class="form-container">
+        <form action="" class="form">
+          <h2 class="add-product-subtitle">Alta de Producto</h2>
+
+          <div class="input-container">
+            <label for="" class="label"
+              >Nombre del Producto <span class="red-star">*</span>
+            </label>
+            <input class="form-control" type="text" class="product_name" />
+          </div>
+
+          <div class="textarea-container">
+            <label for="product_description" class="label">Descripción</label>
+            <input
+              class="form-textarea"
+              type="textarea"
+              name="product_description"
+            />
+          </div>
+
+          <div class="input-container">
+            <label for="" class="label"
+              >Precio <span class="red-star">*</span>
+            </label>
+            <input class="form-control" type="text" name="product_price" />
+          </div>
+
+          <div class="input-container">
+            <label for="category_id">Selecciona una categoría:</label>
+            <select class="form-control" id="category" name="category_id">
+              <option value=""></option>
+              <% categories.map(category => { %>
+              <option value="<%= category.id %>">
+                <%= category.category_name %>
+              </option>
+              <% }) %>
+            </select>
+          </div>
+
+          <div class="input-container">
+            <!-- Input para Main Image -->
+            <label for="main-image-upload" class="custom-file-upload">
+              Seleccionar Imagen Principal
+            </label>
+            <input id="main-image-upload" type="file" name="main_image" />
+          </div>
+
+          <div class="input-container">
+            <!-- Input para las otras tres imágenes -->
+            <label for="additional-images-upload" class="custom-file-upload">
+              Seleccionar Imágenes Adicionales
+            </label>
+            <input
+              id="additional-images-upload"
+              type="file"
+              name="additional_images"
+              multiple
+            />
+          </div>
+
+          <button class="button" type="submit">Enviar</button>
+        </form>
+      </div>
+    </main>
+
+    <footer><%- include('../partials/footer') %></footer>
+
+    <script src="/js/fileUpload.js"></script>
+  </body>
 </html>

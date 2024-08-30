@@ -26,8 +26,7 @@
     border-radius: 4px;
 }
 
-.user-card:hover {
-    opacity: 0.98;
+.user-avatar:hover {
     filter: grayscale(20%) brightness(80%);
 }
 

@@ -5,6 +5,9 @@ const bcrypt = require("bcryptjs");
 const { validationResult } = require("express-validator");
 const { devNull } = require("os");
 
+
+
+
 const userList = async (req, res) => {
   try {
     const allUsers = await db.User.findAll({
@@ -17,6 +20,9 @@ const userList = async (req, res) => {
     console.log(error);
   }
 };
+
+
+
 
 const userProfile = async (req, res) => {
   try {
@@ -50,9 +56,15 @@ const userProfile = async (req, res) => {
   }
 };
 
+
+
+
 const registerForm = (req, res) => {
   res.render("user/registerForm");
 };
+
+
+
 
 const registerProcess = async (req, res) => {
   try {
@@ -128,12 +140,18 @@ const registerProcess = async (req, res) => {
   }
 };
 
+
+
+
 const updateUserForm = async (req, res) => {
   const id = req.params.userId;
   const user = await db.User.findByPk(id);
 
   res.render("user/updateUserForm", { user });
 };
+
+
+
 
 const updateUserProcess = async (req, res) => {
   console.log(req.body);
@@ -251,6 +269,7 @@ const updateUserProcess = async (req, res) => {
 
 
 
+
 const userDestroy = async (req, res) => {
   try {
     const id = parseInt(req.params.id);
@@ -281,9 +300,14 @@ const userDestroy = async (req, res) => {
 };
 
 
+
+
 const loginForm = (req, res) => {
   res.render("user/loginForm");
 };
+
+
+
 
 const loginProcess = async (req, res) => {
   const resultValidation = validationResult(req);
@@ -345,9 +369,13 @@ const loginProcess = async (req, res) => {
 };
 
 
+
+
 const reviewUserForm = (req, res) => {
   res.render("user/reviewUserForm");
 };
+
+
 
 
 const logout = (req, res) => {
@@ -355,6 +383,9 @@ const logout = (req, res) => {
   req.session.destroy();
   return res.redirect("/");
 };
+
+
+
 
 module.exports = {
   userList,

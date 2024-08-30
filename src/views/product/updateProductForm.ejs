@@ -10,10 +10,84 @@
 <body>
 
     <header>
-        <%- include('../partials/header.ejs') %>
+        <%- include('../partials/header') %>
     </header>
-
-    <h2>Soy Update Product Form</h2>
     
+    <main class="update-product-all-container">
+        <h1 class="update-product-title">Modificar Producto</h1>
+
+        <div class="form-container">
+            <form action="" class="form">
+                <h2 class="update-product-subtitle">Modificación de Producto</h2>
+
+                <div class="img-container">
+                    <img class="product-image" src="/img/products/<%= product.main_image %>" alt="">
+                </div>
+                <div class="thumbs-container">
+                    <img class="additional-images" src="/img/products/<%= product.product_additional_images.image_2 %>" alt="">
+                    <img class="additional-images" src="/img/products/<%= product.product_additional_images.image_3 %>" alt="">
+                    <img class="additional-images" src="/img/products/<%= product.product_additional_images.image_4 %>" alt="">
+                </div>
+
+                <div class="input-container">
+                    <label for="" class="label">Nombre del Producto <span class="red-star">*</span> </label>
+                    <input class="form-control" type="text" class="product_name">
+                </div>
+
+                <div class="textarea-container">
+                    <label for="product_description" class="label">Descripción</label>
+                    <input class="form-textarea" type="textarea" name="product_description">
+                </div>
+
+                <div class="input-container">
+                    <label for="" class="label">Precio <span class="red-star">*</span> </label>
+                    <input class="form-control" type="text" name="product_price">
+                </div>
+
+                <div class="input-container">
+                    <label for="category_id">Selecciona una categoría:</label>
+                    <select class="form-control" id="category" name="category_id">
+                        <option value=""></option>
+                        <% categories.map(category => { %>
+                            <option value="<%= category.id %>"><%= category.category_name %></option>
+                        <% }) %>
+                    </select>
+                  </div>
+
+                  <div class="input-container">
+                    <!-- Input para Main Image -->
+                    <label for="main-image-upload" class="custom-file-upload">
+                      Seleccionar Imagen Principal
+                    </label>
+                    <input id="main-image-upload" type="file" name="main_image" />
+                  </div>
+        
+                  <div class="input-container">
+                    <!-- Input para las otras tres imágenes -->
+                    <label for="additional-images-upload" class="custom-file-upload">
+                      Seleccionar Imágenes Adicionales
+                    </label>
+                    <input
+                      id="additional-images-upload"
+                      type="file"
+                      name="additional_images"
+                      multiple
+                    />
+                  </div>
+
+                
+
+                <button class="button" type="submit">Enviar</button>
+
+            </form>
+
+        </div>
+    </main>
+
+    <footer>
+        <%- include('../partials/footer') %>
+    </footer>
+
+    <script src="/js/fileUpload.js"></script>
 </body>
 </html>
