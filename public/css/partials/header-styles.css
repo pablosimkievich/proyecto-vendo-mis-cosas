@@ -30,7 +30,7 @@
 }
 
 .homer-page-link {
-    justify-content: flex-start;
+    justify-content: space-between;
     margin-left: 1em;
     font-size: 1.5em;
 }
@@ -54,6 +54,74 @@
     font-weight: 600;
     padding-left: 0.5em;
 }
+
+.logo {
+    font-weight: 800;
+}
+
+.menu {
+    margin-left: 25px;
+    font-size: 20px;
+}
+
+.menu:hover {
+
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropbtn {
+    color: #fff;
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+}
+
+.dropbtn:hover {
+
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: var(--color-white);
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    margin-left: 25px;
+    margin-top: 10px;
+}
+
+.dropdown-content a {
+    color: var(--color-less-dark);
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-content a:hover {
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.dropdown:hover .dropbtn {
+    box-shadow: 0 4px 20px rgba(0, 128, 0, 0.6);
+}
+
+.categories {
+    text-decoration: none;
+    color: var(--color-light);
+    font-weight: 600;
+    padding-left: 0.5em;
+    font-size: 15px;
+}
+
 
 .link::visited {
     text-decoration: none;
