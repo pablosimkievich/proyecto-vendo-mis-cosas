@@ -14,8 +14,12 @@
       <h1 class="add-product-title">Agregar Producto</h1>
 
       <div class="form-container">
-        <form action="/usuarios/agregar-producto" method="POST" class="form">
+        <form action="/usuarios/agregar-producto" method="POST" class="form" enctype="multipart/form-data">
           <h2 class="add-product-subtitle">Alta de Producto</h2>
+
+          <div class="input-container">
+            <input value="<%= locals.userLogged.id %>"  class="form-control" type="hidden" name="user_fk_id" />
+          </div>
 
           <div class="input-container">
             <label for="" class="label"
@@ -37,7 +41,7 @@
             <label for="" class="label"
               >Precio <span class="red-star">*</span>
             </label>
-            <input class="form-control" type="text" name="product_price" />
+            <input class="form-control" type="number" name="product_price" />
           </div>
 
           <div class="input-container">
@@ -71,6 +75,13 @@
               name="additional_images"
               multiple
             />
+          </div>
+
+          <div class="input-container">
+            <label for="stock" class="label">Disponibilidad <br>
+              <input default="1" value="1" type="number" min="0" step="1" name="stock" class="form-control stock">
+              Unidades
+            </label>
           </div>
 
           <button class="button" type="submit">Enviar</button>

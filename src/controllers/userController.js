@@ -42,6 +42,7 @@ const userProfile = async (req, res) => {
         },
         {
           association: "products",
+          where: { status: 'Disponible'}
         },
       ],
     });

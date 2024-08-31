@@ -130,3 +130,9 @@ input[type="file"] {
 .custom-file-upload:hover {
     background-color: var(--color-less-dark);
 }
+
+.stock {
+    max-width: 50px;
+    margin-bottom: 15px;
+    margin-top: 15px;
+}

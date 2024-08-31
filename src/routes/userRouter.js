@@ -8,6 +8,10 @@ const onlyGuestMiddleware = require('../middlewares/onlyGuestMiddleware.js')
 const onlyAuthMidleware = require('../middlewares/onlyAuthMiddleware.js')
 
 
+
+
+
+
 // ? Lista de Usuarios
 router.get('/usuarios', userController.userList)
 

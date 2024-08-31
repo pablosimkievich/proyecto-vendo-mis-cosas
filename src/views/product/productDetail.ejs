@@ -24,7 +24,8 @@
 
           <img class="thumb" src="/img/products/<%= product.main_image %>" alt="imagen-1" />
 
-          <img class="thumb"
+          <% if(product.product_additional_images) { %>
+            <img class="thumb"
             src="/img/products/<%= product.product_additional_images.image_2 %>"
             alt="imagen-2"
           />
@@ -38,6 +39,8 @@
             src="/img/products/<%= product.product_additional_images.image_4 %>"
             alt="imagen-4"
           />
+          <% } %>
+
 
         </div>
 

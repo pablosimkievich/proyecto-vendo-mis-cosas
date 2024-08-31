@@ -28,7 +28,7 @@ module.exports = (sequelize, dataTypes) => {
         },
         status: {
             type: dataTypes.STRING
-        }
+        },
     },
     {
         tableName: 'products',
