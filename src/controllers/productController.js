@@ -5,7 +5,7 @@ const { validationResult } = require("express-validator");
 const productList = async (req, res) => {
   try {
     const getAllProducts = await db.Product.findAll({
-      where: { status: 'Disponible' },
+      where: { status: "Disponible" },
       include: [
         {
           association: "users",
@@ -13,7 +13,7 @@ const productList = async (req, res) => {
       ],
       order: [["id", "DESC"]],
     });
-    res.render("product/productList", { getAllProducts }); 
+    res.render("product/productList", { getAllProducts });
   } catch (error) {
     console.log(error);
   }
@@ -32,11 +32,11 @@ const getCategory = async (req, res) => {
     const getCategoryProducts = await db.Product.findAll({
       where: {
         category_id: req.params.id,
-        status: 'Disponible'
+        status: "Disponible",
       },
       include: [
         {
-          association: "categories", 
+          association: "categories",
         },
         {
           association: "users",
@@ -72,7 +72,7 @@ const productDetail = async (req, res) => {
       ],
     });
 
-    if (product && product.status === 'Disponible') {
+    if (product && product.status === "Disponible") {
       const relatedProducts = await db.Product.findAll({
         where: {
           category_id: product.category_id,
@@ -80,10 +80,10 @@ const productDetail = async (req, res) => {
         limit: 4,
       });
       console.log(product);
-      
+
       res.render("product/productDetail", { product, relatedProducts });
     } else {
-      res.render("notFound404");  
+      res.render("notFound404");
     }
   } catch (error) {
     console.log(error);
@@ -113,7 +113,29 @@ const createProduct = async (req, res) => {
     });
   }
 
+  // Si hay un error de Multer, regresa al formulario con el mensaje de error
+  if (req.multerError) {
+    return res.render("product/addProductForm", {
+      errors: {
+        main_image: {
+          msg: req.multerError,
+        },
+      },
+      oldData: req.body, // Para preservar los datos del formulario
+      categories,
+    });
+  }
+
   console.log(req.files); // Debería mostrar un objeto con 'main_image' y 'additional_images'
+
+  // Verifica si se subió una imagen principal
+  if (!req.files || !req.files.main_image) {
+    return res.render("product/addProductForm", {
+      errors: { main_image: { msg: "Debes seleccionar una imagen principal" } },
+      oldData: req.body,
+      categories,
+    });
+  }
 
   const mainImage = req.files["main_image"]
     ? req.files["main_image"][0].filename
@@ -166,16 +188,17 @@ const createProduct = async (req, res) => {
 
       res.redirect("/productos");
     } else {
+      let newImages = {
+        product_fk_id: lastProduct.id,
+        image_2: additionalImages,
+      };
+  
+      await db.ProductAdditionalImage.create(newImages);
+  
+      res.redirect("/productos");
     }
 
-    let newImages = {
-      product_fk_id: lastProduct.id,
-      image_2: additionalImages,
-    };
 
-    await db.ProductAdditionalImage.create(newImages);
-
-    res.redirect("/productos");
   } catch (error) {
     console.log(error);
   }
@@ -197,30 +220,58 @@ const updateProductForm = async (req, res) => {
     ],
   });
 
-  res.render("product/updateProductForm", { categories, product });
+  if (product) {
+    res.render("product/updateProductForm", { categories, product });
+  } else {
+    res.render("notFound404");
+  }
 };
 
 const updateProduct = async (req, res) => {
-  console.log(req.body);
+  // console.log(req.body);
 
   const categories = await db.Category.findAll();
   const id = req.params.productId;
 
-  const productToUpdate = await db.Product.findByPk(id);
+  const product = await db.Product.findByPk(id, {
+    include: [
+      {
+        association: "users",
+      },
+      {
+        association: "product_additional_images",
+      },
+    ],
+  });
 
   const resultValidation = validationResult(req);
 
   if (resultValidation.errors.length > 0) {
-    console.log(resultValidation);
+    // console.log(resultValidation);
 
     res.render("product/updateProductForm", {
       errors: resultValidation.mapped(),
       oldData: req.body,
-      categories,
+      categories: categories,
+      product: product,
     });
   }
 
   console.log(req.files); // Debería mostrar un objeto con 'main_image' y 'additional_images'
+
+  // Si hay un error de Multer, regresa al formulario con el mensaje de error
+  if (req.multerError) {
+    return res.render("product/addProductForm", {
+      errors: {
+        main_image: {
+          msg: req.multerError,
+        },
+      },
+      oldData: req.body, // Para preservar los datos del formulario
+      categories,
+      product,
+    });
+  }
 
   const mainImage = req.files["main_image"]
     ? req.files["main_image"][0].filename
@@ -241,25 +292,17 @@ const updateProduct = async (req, res) => {
     product_price: req.body.product_price,
     category_id: req.body.category_id,
     user_fk_id: req.body.user_fk_id,
-    main_image: mainImage,
+    main_image: mainImage !== null ? mainImage : product.main_image,
     stock: req.body.stock,
     status: status,
   };
 
-  console.log(updatedProduct);
+  // console.log(updatedProduct);
 
   try {
     await db.Product.update(updatedProduct, {
       where: {
-        id: productToUpdate.id,
-      },
-    });
-
-    const lastProduct = await db.Product.findOne({
-      where: {
-        product_name: {
-          [op.like]: `%${req.body.product_name}`,
-        },
+        id: product.id,
       },
     });
 
@@ -267,36 +310,60 @@ const updateProduct = async (req, res) => {
 
     if (arrayCheck == true) {
       let updatedImages = {
-        product_fk_id: lastProduct.id,
+        product_fk_id: product.id,
         image_2: additionalImages[0],
         image_3: additionalImages[1],
         image_4: additionalImages[2],
       };
+      console.log(updatedImages)
 
       await db.ProductAdditionalImage.update(updatedImages, {
         where: {
-          id: productToUpdate.id,
+          product_fk_id: product.id,
         },
       });
 
       res.redirect("/productos");
     } else {
+      let updatedImages = {
+        product_fk_id: product.id,
+        image_2: additionalImages,
+      };
+      console.log(updatedImages)
+
+      await db.ProductAdditionalImage.update(updatedImages, {
+        where: {
+          product_fk_id: product.id,
+        },
+      });
+
+      res.redirect("/productos");
     }
-
-    let updatedImages = {
-      product_fk_id: lastProduct.id,
-      image_2: additionalImages,
-    };
-
-    await db.ProductAdditionalImage.update(updatedImages, {
-      where: {
-        id: productToUpdate.id,
-      },
-    });
-
-    res.redirect("/productos");
   } catch (error) {
     console.log(error);
+  }
+};
+
+const destroyProduct = async (req, res) => {
+  const productId = parseInt(req.params.productId);
+  const userId = parseInt(req.params.userId);
+  const product = await db.Product.findByPk(productId);
+
+  // console.log(`Borrando producto: ${productId}`);
+
+  if (product && parseInt(req.session.userLogged.id) === userId) {
+    console.log("deleted");
+    await db.Product.update(
+      { status: "No disponible" },
+      {
+        where: {
+          id: productId,
+        },
+      }
+    );
+    res.redirect(`/usuarios/${userId}`);
+  } else {
+    res.render("notFound404");
   }
 };
 
@@ -306,6 +373,7 @@ module.exports = {
   productDetail,
   addProductForm,
   createProduct,
-  updateProduct,
   updateProductForm,
+  updateProduct,
+  destroyProduct,
 };

@@ -13,7 +13,6 @@ validateAddProduct = [
     .isString()
     .isLength({ min: 5, max: 1000 })
     .withMessage("El texto debe tener entre 5 y 1000 caracteres")
-    .escape()
     .bail(),
   body("product_price").notEmpty()
     .withMessage("Debes completar el precio")
@@ -45,7 +44,7 @@ validateAddProduct = [
           !stringfile.includes(".webp")
         ) {
           throw new Error(
-            "Las extensiones de archivo permitidas son '.jpg', '.jpeg  '.png', '.webp y '.gif' "
+            "Las extensiones de archivo permitidas son '.jpg', '.jpeg  '.png', '.webp' y '.gif' "
           );
         }
       }
@@ -54,6 +53,7 @@ validateAddProduct = [
     .withMessage(
       "Las extensiones de archivo permitidas son '.jpg', '.jpeg' , '.png', 'webp' y '.gif' "
     ),
+    
   body("additional_images")
     .custom((value, { req }) => {
       let stringfile = req.body.additional_images;
@@ -95,6 +95,7 @@ validateAddProduct = [
     .withMessage(
       "Las extensiones de archivo permitidas son '.jpg', '.jpeg', '.png', 'webp' y '.gif' "
     ),
+    
 ];
 
 module.exports = validateAddProduct;

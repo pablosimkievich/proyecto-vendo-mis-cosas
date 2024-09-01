@@ -45,7 +45,7 @@ validateUpdateProduct = [
           !stringfile.includes(".webp")
         ) {
           throw new Error(
-            "Las extensiones de archivo permitidas son '.jpg', '.jpeg  '.png', '.webp y '.gif' "
+            "Las extensiones de archivo permitidas son '.jpg', '.jpeg  '.png', '.webp' y '.gif' "
           );
         }
       }

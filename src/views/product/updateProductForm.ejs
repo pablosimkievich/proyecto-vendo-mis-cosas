@@ -35,7 +35,11 @@
             <label for="" class="label"
               >Nombre del Producto <span class="red-star">*</span>
             </label>
-            <input class="form-control" type="text" name="product_name" />
+            <input class="form-control" type="text" name="product_name" 
+            value="<%= locals.oldData ? oldData.product_name : product.product_name %>" />
+            <% if(locals.errors && errors.product_name) { %>
+              <p class="error-msg"><% errors.product_name.msg %></p>
+            <% } %>
           </div>
 
           <div class="textarea-container">
@@ -44,6 +48,10 @@
               class="form-textarea"
               type="textarea"
               name="product_description"
+              value="<%= locals.oldData ? oldData.product_description : product.product_description %>"
+              <% if(locals.error && errors.product_description) { %>
+                <p class="errors-msg"><%= errors.product_description.msg %></p>
+              <% } %>
             />
           </div>
 
@@ -51,7 +59,8 @@
             <label for="" class="label"
               >Precio <span class="red-star">*</span>
             </label>
-            <input class="form-control" type="number" name="product_price" />
+            <input class="form-control" type="number" name="product_price"
+            value="<%= locals.oldData ? oldData.product_price : product.product_price %>" />
           </div>
 
           <div class="input-container">
@@ -59,7 +68,8 @@
             <select class="form-control" id="category" name="category_id">
               <option value=""></option>
               <% categories.map(category => { %>
-              <option value="<%= category.id %>">
+              <option value="<%= category.id %>"
+                <%= (locals.oldData && oldData.category_id == category.id) || (!locals.oldData && product.category_id == category.id) ? 'selected' : '' %>>
                 <%= category.category_name %>
               </option>
               <% }) %>
@@ -80,6 +90,10 @@
               Cambiar Imagen Principal
             </label>
             <input id="main-image-upload" type="file" name="main_image" />
+            <%if(locals.errors && errors.main_image){%>
+              <p class="error-msg"><%= errors.main_image.msg %></p>
+            <%}%>
+
           </div>
 
           <div class="thumbs-container">
@@ -113,6 +127,10 @@
               name="additional_images"
               multiple
             />
+            <%if(locals.errors && errors.additional_images){%>
+              <p class="error-msg"><%= errors.additional_images.msg %></p>
+            <%}%>
+
           </div>
 
           <div class="input-container">

@@ -74,9 +74,11 @@
                             <a href="/usuarios/<%= locals.userLogged.id %>/actualizar-producto/<%= element.id %>">
                                 <button type="submit" class="control-panel-buttons">Editar Producto</button>
                             </a>
-                            <a href="">
+                            <form action="/usuarios/<%= user.id %>/borrar-producto/<%= element.id %>?_method=DELETE" method="POST" style="display: inline">
                                 <button type="submit" class="control-panel-buttons">Borrar Producto</button>
-                            </a>  
+                            </form>
+
+                        
 
                         <% } %>
 

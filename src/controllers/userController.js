@@ -5,9 +5,6 @@ const bcrypt = require("bcryptjs");
 const { validationResult } = require("express-validator");
 const { devNull } = require("os");
 
-
-
-
 const userList = async (req, res) => {
   try {
     const allUsers = await db.User.findAll({
@@ -21,17 +18,14 @@ const userList = async (req, res) => {
   }
 };
 
-
-
-
 const userProfile = async (req, res) => {
   try {
-    const id = req.params.id;
+    const id = parseInt(req.params.id);
 
     const user = await db.User.findOne({
       where: {
         id: id,
-        status: "Activo",
+        status: "Activo", 
       },
       include: [
         {
@@ -42,7 +36,8 @@ const userProfile = async (req, res) => {
         },
         {
           association: "products",
-          where: { status: 'Disponible'}
+          required: false, // Permite devolver el usuario incluso si no tiene productos disponibles
+          where: { status: "Disponible" },
         },
       ],
     });
@@ -57,15 +52,9 @@ const userProfile = async (req, res) => {
   }
 };
 
-
-
-
 const registerForm = (req, res) => {
   res.render("user/registerForm");
 };
-
-
-
 
 const registerProcess = async (req, res) => {
   try {
@@ -125,7 +114,7 @@ const registerProcess = async (req, res) => {
       user_avatar: fileName,
       user_type_fk_id: 1,
       sales_description: req.body.sales_description,
-      status: 'Activo'
+      status: "Activo",
     };
 
     await db.User.create(newUser);
@@ -141,18 +130,12 @@ const registerProcess = async (req, res) => {
   }
 };
 
-
-
-
 const updateUserForm = async (req, res) => {
   const id = req.params.userId;
   const user = await db.User.findByPk(id);
 
   res.render("user/updateUserForm", { user });
 };
-
-
-
 
 const updateUserProcess = async (req, res) => {
   console.log(req.body);
@@ -247,7 +230,7 @@ const updateUserProcess = async (req, res) => {
     user_avatar: fileName,
     password: userToUpdate.password,
     sales_description: salesDescription,
-    status: 'Activo'
+    status: "Activo",
   };
 
   try {
@@ -268,14 +251,17 @@ const updateUserProcess = async (req, res) => {
   }
 };
 
-
-
-
 const userDestroy = async (req, res) => {
   try {
     const id = parseInt(req.params.id);
-    const user = await db.User.findByPk(id);
-    console.log('deletion')
+    const user = await db.User.findByPk(id, {
+      include: [
+        {
+          association: "products",
+        },
+      ],
+    });
+    console.log("deletion");
 
     if (!req.session.userLogged) {
       return res.render("notFound404");
@@ -284,14 +270,27 @@ const userDestroy = async (req, res) => {
     }
 
     if (user && parseInt(req.session.userLogged.id) === id) {
-      console.log('deleted')
-      await db.User.update({ status: 'Inactivo' }, {
-         where: { 
-          id: id
-         }
-         });
+      console.log("deleted");
+
+      // Actualizar es estado del usuario a 'Inactivo'
+      await db.User.update(
+        { status: "Inactivo" },
+        {
+          where: {
+            id: id,
+          },
+        }
+      );
+
+      // Actualizar el estado de los productos del usuario a 'No disponible'
+      await db.Product.update(
+        { status: "No disponible" },
+        {
+          where: { user_fk_id: id }, 
+        }
+      );
       req.session.destroy();
-      res.redirect('/')
+      res.redirect("/");
     } else {
       res.render("notFound404");
     }
@@ -300,15 +299,9 @@ const userDestroy = async (req, res) => {
   }
 };
 
-
-
-
 const loginForm = (req, res) => {
   res.render("user/loginForm");
 };
-
-
-
 
 const loginProcess = async (req, res) => {
   const resultValidation = validationResult(req);
@@ -345,7 +338,7 @@ const loginProcess = async (req, res) => {
   }
 
   const password = req.body.password;
-  let passwordMatch = true; /*bcrypt.compareSync(password, userToLogin.password);*/
+  let passwordMatch = bcrypt.compareSync(password, userToLogin.password); 
 
   if (!passwordMatch) {
     res.render("user/loginForm", {
@@ -369,24 +362,15 @@ const loginProcess = async (req, res) => {
   }
 };
 
-
-
-
 const reviewUserForm = (req, res) => {
   res.render("user/reviewUserForm");
 };
-
-
-
 
 const logout = (req, res) => {
   res.clearCookie("userEmail");
   req.session.destroy();
   return res.redirect("/");
 };
-
-
-
 
 module.exports = {
   userList,
