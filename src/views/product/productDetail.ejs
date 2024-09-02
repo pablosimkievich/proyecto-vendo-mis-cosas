@@ -15,7 +15,7 @@
 
       <% if(product) { %>
 
-      <h1 class="product-title">Categoría: <%= product.categories.category_name %></h1>
+        <a class="link-category" href="/categorias/<%= product.categories.id %>"><h1 class="product-title">Categoría: <%= product.categories.category_name %></h1></a>
       <h2 class="product-subtitle"><%= product.product_name %></h2>
 
       <section class="product-detail-container">

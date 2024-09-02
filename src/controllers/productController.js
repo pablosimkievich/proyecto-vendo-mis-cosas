@@ -1,5 +1,6 @@
 const db = require("../database/models/index");
 const op = db.Sequelize.Op;
+const { Sequelize } = require('sequelize');
 const { validationResult } = require("express-validator");
 
 const productList = async (req, res) => {
@@ -73,6 +74,18 @@ const productDetail = async (req, res) => {
     });
 
     if (product && product.status === "Disponible") {
+      
+      const relatedProducts = await db.Product.findAll({
+        where: {
+          category_id: product.category_id, // Filtra por la misma categoría
+          id: { [op.ne]: id }, // Excluye el producto actual
+          status: 'Disponible' // Opcional: Filtra solo productos disponibles
+        },
+        order: Sequelize.literal('RAND()'), // Ordena aleatoriamente
+        limit: 4, // Limita a 4 productos
+      });
+
+      /*
       const relatedProducts = await db.Product.findAll({
         where: {
           category_id: product.category_id,
@@ -80,7 +93,7 @@ const productDetail = async (req, res) => {
         limit: 4,
       });
       console.log(product);
-
+      */
       res.render("product/productDetail", { product, relatedProducts });
     } else {
       res.render("notFound404");

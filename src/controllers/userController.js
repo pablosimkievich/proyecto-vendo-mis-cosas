@@ -334,32 +334,35 @@ const loginProcess = async (req, res) => {
           msg: "El email no se encuentra registrado",
         },
       },
-    });
-  }
-
-  const password = req.body.password;
-  let passwordMatch = bcrypt.compareSync(password, userToLogin.password); 
-
-  if (!passwordMatch) {
-    res.render("user/loginForm", {
-      errors: {
-        password: {
-          msg: "Las credenciales son invalidas",
-        },
-      },
+      oldData: req.body,
     });
   } else {
-    console.log("Es el password");
-    delete userToLogin.password;
-    req.session.userLogged = userToLogin;
+    const password = req.body.password;
+    let passwordMatch = bcrypt.compareSync(password, userToLogin.password); 
 
-    // req.body.remember = true
-    if (req.body.remember) {
-      res.cookie("userEmail", req.body.user_email, { maxAge: 1000 * 120 });
+    if (!passwordMatch) {
+      res.render("user/loginForm", {
+        errors: {
+          password: {
+            msg: "Las credenciales son invalidas",
+          },
+        },
+      });
+    } else {
+      console.log("Es el password");
+      delete userToLogin.password;
+      req.session.userLogged = userToLogin;
+  
+      // req.body.remember = true
+      if (req.body.remember) {
+        res.cookie("userEmail", req.body.user_email, { maxAge: 1000 * 120 });
+      }
+  
+      return res.redirect(`/usuarios/${req.session.userLogged.id}`);
     }
 
-    return res.redirect(`/usuarios/${req.session.userLogged.id}`);
   }
+
 };
 
 const reviewUserForm = (req, res) => {
