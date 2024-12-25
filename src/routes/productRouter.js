@@ -57,8 +57,9 @@ router.get("/productos", productController.productList);
 // ? Lista de Productos por Categpría
 router.get("/categorias/:id", productController.getCategory);
 
-// ? Detalle de Producto
+// ? Detalle de Producto y orden de compra
 router.get("/usuarios/:id/productos/:id", productController.productDetail);
+router.get("/vendedor/:vendorId/comprador/:buyerId/producto/:productId/orden-de-compra")
 
 // ? Agregar, actualizar y borrar producto
 router.get(
