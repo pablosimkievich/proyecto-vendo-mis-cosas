@@ -26,9 +26,10 @@ module.exports = (sequelize, dataTypes) => {
         stock: {
             type: dataTypes.INTEGER
         },
+        
         status: {
             type: dataTypes.STRING
-        },
+        }, 
     },
     {
         tableName: 'products',

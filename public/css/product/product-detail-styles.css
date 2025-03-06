@@ -108,6 +108,18 @@
     max-width: 250px;
 }
 
+.buy-button {
+    margin-top: 15px;
+    margin-bottom: 15px;
+    padding: 10px;
+    background-color: var(--color-less-dark);
+    color: var(--color-white);
+    border: none;
+    border-radius: 4px;
+    max-width: 120px;
+    text-decoration: none;
+}
+
 
 .user-link {
     text-decoration: none;

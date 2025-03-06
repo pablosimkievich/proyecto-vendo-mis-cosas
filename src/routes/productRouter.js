@@ -58,8 +58,21 @@ router.get("/productos", productController.productList);
 router.get("/categorias/:id", productController.getCategory);
 
 // ? Detalle de Producto y orden de compra
-router.get("/usuarios/:id/productos/:id", productController.productDetail);
-router.get("/vendedor/:vendorId/comprador/:buyerId/producto/:productId/orden-de-compra")
+router.get("/usuarios/:userId/productos/:productId", productController.productDetail);
+
+// Product order routes
+router.get(
+  "/vendedor/:vendorId/comprador/:buyerId/producto/:productId/orden-de-compra",
+  onlyAuthMidleware,
+  productController.productOrder
+);
+
+// Add POST route for processing the order
+router.post(
+  "/vendedor/:vendorId/comprador/:buyerId/producto/:productId/procesar-orden",
+  onlyAuthMidleware,
+  productController.processOrder
+);
 
 // ? Agregar, actualizar y borrar producto
 router.get(
@@ -92,4 +105,12 @@ router.put(
   productController.updateProduct
 );
 router.delete('/usuarios/:userId/borrar-producto/:productId', productController.destroyProduct)
+
+// Add this new route for product orders
+router.get(
+  "/orden-producto", 
+  /* onlyAuthMidleware, */ // User must be logged in to place an order
+  productController.productOrder
+);
+
 module.exports = router;

@@ -1,0 +1,7 @@
+# Install nvm if you haven't already
+# For Windows:
+nvm install [version]  # e.g., nvm install 16.14.0
+nvm use [version]     # e.g., nvm use 16.14.0
+
+# Then try installing dependencies again
+npm install

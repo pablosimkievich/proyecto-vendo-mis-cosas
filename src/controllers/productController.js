@@ -57,9 +57,10 @@ const getCategory = async (req, res) => {
 
 const productDetail = async (req, res) => {
   try {
-    const id = req.params.id;
+    const productId = req.params.productId;
+    const userId = req.params.userId;
 
-    const product = await db.Product.findByPk(id, {
+    const product = await db.Product.findByPk(productId, {
       include: [
         {
           association: "categories",
@@ -74,32 +75,27 @@ const productDetail = async (req, res) => {
     });
 
     if (product && product.status === "Disponible") {
-      
-      const relatedProducts = await db.Product.findAll({
-        where: {
-          category_id: product.category_id, // Filtra por la misma categoría
-          id: { [op.ne]: id }, // Excluye el producto actual
-          status: 'Disponible' // Opcional: Filtra solo productos disponibles
-        },
-        order: Sequelize.literal('RAND()'), // Ordena aleatoriamente
-        limit: 4, // Limita a 4 productos
-      });
-
-      /*
       const relatedProducts = await db.Product.findAll({
         where: {
           category_id: product.category_id,
+          id: { [op.ne]: productId },
+          status: 'Disponible'
         },
+        order: Sequelize.literal('RAND()'),
         limit: 4,
       });
-      console.log(product);
-      */
-      res.render("product/productDetail", { product, relatedProducts });
+
+      res.render("product/productDetail", { 
+        product, 
+        relatedProducts,
+        showOrderButton: req.session.userLogged && req.session.userLogged.id !== product.user_fk_id
+      });
     } else {
       res.render("notFound404");
     }
   } catch (error) {
-    console.log(error);
+    console.log("Error in productDetail:", error);
+    res.render("notFound404");
   }
 };
 
@@ -380,6 +376,63 @@ const destroyProduct = async (req, res) => {
   }
 };
 
+const productOrder = async (req, res) => {
+  try {
+    // For testing, let's just render the page with minimal data
+    const testProduct = {
+      product_name: "Test Product",
+      product_description: "This is a test product description",
+      product_price: 1000,
+      main_image: "default.jpg",
+      stock: 10,
+      users: {
+        id: 1,
+        user_name: "Test Vendor"
+      }
+    };
+
+    res.render("product/productOrder", { 
+      product: testProduct,
+      buyerId: 1,
+      vendorId: 1
+    });
+
+  } catch (error) {
+    console.log("Error in productOrder:", error);
+    res.render("notFound404");
+  }
+};
+
+const processOrder = async (req, res) => {
+  try {
+    const { vendorId, buyerId, productId } = req.params;
+    const { quantity, shippingAddress, paymentMethod } = req.body;
+
+    // Create order in database
+    const order = await db.ShopOrder.create({
+      buyer_id: buyerId,
+      vendor_id: vendorId,
+      product_id: productId,
+      quantity: quantity,
+      shipping_address: shippingAddress,
+      payment_method: paymentMethod,
+      status: 'Pending'
+    });
+
+    // Update product stock
+    await db.Product.decrement('stock', {
+      by: quantity,
+      where: { id: productId }
+    });
+
+    res.redirect(`/usuarios/${buyerId}/ordenes/${order.id}`);
+
+  } catch (error) {
+    console.log("Error processing order:", error);
+    res.render("error", { message: "Error processing your order" });
+  }
+};
+
 module.exports = {
   productList,
   getCategory,
@@ -389,4 +442,6 @@ module.exports = {
   updateProductForm,
   updateProduct,
   destroyProduct,
+  productOrder,
+  processOrder
 };

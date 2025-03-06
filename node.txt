@@ -1,0 +1,5 @@
+new node version 22.12.0
+
+old node version 16.16.0
+
+nvm use [version]

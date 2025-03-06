@@ -60,10 +60,9 @@
             <h2>$ <%= product.product_price %></h2>
           
           
-          <form>
-            <button class="btn">Comprar</button>
-          </form>
-
+          <a href="/orden-producto" class="buy-button">
+            Comprar
+          </a>
 
           <a class="user-link" href="/usuarios/<%= product.users.id %>">
             <div class="user-card">

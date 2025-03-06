@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/css/product/product-order-styles.css" />
+    <title>Vendo Mis Cosas</title>
+  </head>
+  <body>
+    <header><%- include('../partials/header') %></header>
+
+    <main class="order-container">
+      <h2>Orden de Compra</h2>
+      
+      <section class="product-summary">
+        <img src="/img/products/<%= product.main_image %>" alt="<%= product.product_name %>">
+        <div class="product-info">
+          <h3><%= product.product_name %></h3>
+          <p class="price">$<%= product.product_price %></p>
+          <p class="seller">Vendedor: <%= product.users.user_name %></p>
+        </div>
+      </section>
+
+      <form action="/vendedor/<%= vendorId %>/comprador/<%= buyerId %>/producto/<%= product.id %>/procesar-orden" method="POST" class="order-form">
+        <div class="form-group">
+          <label for="quantity">Cantidad:</label>
+          <input type="number" id="quantity" name="quantity" min="1" max="<%= product.stock %>" required>
+        </div>
+
+        <div class="form-group">
+          <label for="shippingAddress">Dirección de envío:</label>
+          <textarea id="shippingAddress" name="shippingAddress" required></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="paymentMethod">Método de pago:</label>
+          <select id="paymentMethod" name="paymentMethod" required>
+            <option value="credit_card">Tarjeta de Crédito</option>
+            <option value="debit_card">Tarjeta de Débito</option>
+            <option value="transfer">Transferencia Bancaria</option>
+          </select>
+        </div>
+
+        <div class="order-summary">
+          <h4>Resumen de la orden</h4>
+          <p>Precio unitario: $<%= product.product_price %></p>
+          <p>Total: $<span id="totalPrice"><%= product.product_price %></span></p>
+        </div>
+
+        <button type="submit" class="submit-order">Confirmar Compra</button>
+      </form>
+
+    </main>
+
+    <script>
+      // Update total price when quantity changes
+      document.getElementById('quantity').addEventListener('change', function(e) {
+        const quantity = e.target.value;
+        /* const unitPrice = <%= product.product_price %>; */
+        document.getElementById('totalPrice').textContent = (quantity * unitPrice).toFixed(2);
+      });
+    </script>
+
+    <%- include('../partials/footer') %>
+  </body>
+</html>

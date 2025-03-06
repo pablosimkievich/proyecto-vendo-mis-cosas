@@ -47,7 +47,7 @@ app.use( (req, res, next) => {
 const puerto = process.env.PORT || 3001;
 
 app.listen(puerto, () => {
-    console.log(`Servidor corriendo en puerto ${puerto}`)
+    console.log(`Aplicación Vendo Mis Cosas corriendo en puerto ${puerto}`)
 })
 
 
