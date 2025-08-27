@@ -1,0 +1,113 @@
+.order-container {
+    background-color: var(--color-white);
+    min-height: 100vh;
+    padding: 30px;
+}
+
+.order-container h2 {
+    color: var(--color-less-dark);
+    margin-bottom: 30px;
+    font-size: 1.8em;
+}
+
+.product-summary {
+    display: flex;
+    gap: 20px;
+    background-color: white;
+    border-radius: 4px;
+    padding: 20px;
+    margin-bottom: 30px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.product-summary img {
+    max-width: 200px;
+    border-radius: 4px;
+}
+
+.product-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.product-info h3 {
+    margin: 0 0 10px 0;
+    color: var(--color-less-dark);
+}
+
+.price {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: var(--color-less-dark);
+    margin: 10px 0;
+}
+
+.seller {
+    color: var(--color-gray);
+}
+
+.order-form {
+    background-color: white;
+    border-radius: 4px;
+    padding: 30px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    color: var(--color-less-dark);
+    font-weight: 500;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1em;
+}
+
+.form-group textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+.order-summary {
+    background-color: #f8f9fa;
+    border-radius: 4px;
+    padding: 20px;
+    margin: 20px 0;
+}
+
+.order-summary h4 {
+    margin-top: 0;
+    color: var(--color-less-dark);
+}
+
+.order-summary p {
+    margin: 5px 0;
+}
+
+.submit-order {
+    background-color: var(--color-less-dark);
+    color: var(--color-white);
+    border: none;
+    border-radius: 4px;
+    padding: 12px 30px;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.submit-order:hover {
+    background-color: #333;
+    opacity: 0.9;
+}

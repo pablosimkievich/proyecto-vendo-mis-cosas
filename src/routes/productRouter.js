@@ -108,7 +108,7 @@ router.delete('/usuarios/:userId/borrar-producto/:productId', productController.
 
 // Add this new route for product orders
 router.get(
-  "/orden-producto", 
+  "/orden-producto/:productId", 
   /* onlyAuthMidleware, */ // User must be logged in to place an order
   productController.productOrder
 );
