@@ -378,24 +378,42 @@ const destroyProduct = async (req, res) => {
 
 const productOrder = async (req, res) => {
   try {
-    // For testing, let's just render the page with minimal data
-    const testProduct = {
-      product_name: "Test Product",
-      product_description: "This is a test product description",
-      product_price: 1000,
-      main_image: "default.jpg",
-      stock: 10,
-      users: {
-        id: 1,
-        user_name: "Test Vendor"
-      }
-    };
+    // Get product ID from params
+    const productId = req.params.productId;
+    
+    // Get vendor and buyer IDs from params (if available)
+    const vendorId = req.params.vendorId;
+    const buyerId = req.params.buyerId;
 
-    res.render("product/productOrder", { 
-      product: testProduct,
-      buyerId: 1,
-      vendorId: 1
+    // Fetch the actual product from the database
+    const product = await db.Product.findByPk(productId, {
+      include: [
+        {
+          association: "categories",
+        },
+        {
+          association: "product_additional_images",
+        },
+        {
+          association: "users",
+        },
+      ],
     });
+
+    // Check if product exists and is available
+    if (product && product.status === "Disponible") {
+      // Determine buyer and vendor IDs
+      let actualBuyerId = buyerId || (req.session.userLogged ? req.session.userLogged.id : null);
+      let actualVendorId = vendorId || product.user_fk_id;
+
+      res.render("product/productOrder", {
+        product: product,
+        buyerId: actualBuyerId,
+        vendorId: actualVendorId
+      });
+    } else {
+      res.render("notFound404");
+    }
 
   } catch (error) {
     console.log("Error in productOrder:", error);

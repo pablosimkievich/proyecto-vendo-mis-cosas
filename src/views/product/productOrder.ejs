@@ -56,18 +56,21 @@
     </main>
 
     <script>
+      // Store product price in a JavaScript variable
+      const productPrice = parseFloat('<%= product.product_price %>');
+      
       // Update total price when quantity changes
       document.getElementById('quantity').addEventListener('input', function(e) {
-        const quantity = e.target.value || 0;
-        const productPrice = parseFloat('<%= product.product_price %>');
-        document.getElementById('totalPrice').textContent = (quantity * unitPrice).toFixed(2);
+        const quantity = parseInt(e.target.value) || 0;
+        const totalPrice = (quantity * productPrice).toFixed(2);
+        document.getElementById('totalPrice').textContent = totalPrice;
       });
       
       // Initialize total price
       document.addEventListener('DOMContentLoaded', function() {
-        const quantity = document.getElementById('quantity').value || 0;
-        const unitPrice =  parseFloat('<%= product.product_price %>');
-        document.getElementById('totalPrice').textContent = (quantity * unitPrice).toFixed(2);
+        const quantity = parseInt(document.getElementById('quantity').value) || 0;
+        const totalPrice = (quantity * productPrice).toFixed(2);
+        document.getElementById('totalPrice').textContent = totalPrice;
       });
     </script>
 
